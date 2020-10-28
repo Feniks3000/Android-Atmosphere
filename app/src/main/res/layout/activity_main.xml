@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="411dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/labelTempNow"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/tempNow"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imagePrecipitationNow"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FFEB3B"
+                android:contentDescription="@string/imageTempNowDescription" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <TableRow
+                android:id="@+id/rowTempNext4HourDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/labelNextHour1Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour1Description"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/labelNextHour2Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour2Description"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/labelNextHour3Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour3Description"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/labelNextHour4Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour4Description"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowTempNext4Hour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/labelNextHour1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour1"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelNextHour2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour2"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelNextHour3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour3"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelNextHour4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/tempNextHour4"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/labelNext5DaysHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tempNext5DaysHeader"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
+            <TableRow
+                android:id="@+id/rowTempNext5DaysDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top">
+
+                <TextView
+                    android:id="@+id/labelDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="120dp"
+                    android:text="@string/labelMorning"
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/labelMorning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMorning"
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/labelMidday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMidday"
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/labelEvening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelEvening"
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowNextDay1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top">
+
+                <TextView
+                    android:id="@+id/labelDateNextDay1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="120dp"
+                    android:text="@string/labelDateNextDay1"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMorningNextDay1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMorningNextDay1"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMiddayNextDay1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMiddayNextDay1"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelEveningNextDay1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelEveningNextDay1"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowNextDay2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top">
+
+                <TextView
+                    android:id="@+id/labelDateNextDay2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="120dp"
+                    android:text="@string/labelDateNextDay2"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMorningNextDay2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMorningNextDay2"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMiddayNextDay2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMiddayNextDay2"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelEveningNextDay2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelEveningNextDay2"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowNextDay3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top">
+
+                <TextView
+                    android:id="@+id/labelDateNextDay3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="120dp"
+                    android:text="@string/labelDateNextDay3"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMorningNextDay3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMorningNextDay3"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMiddayNextDay3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMiddayNextDay3"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelEveningNextDay3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelEveningNextDay3"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowNextDay4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top">
+
+                <TextView
+                    android:id="@+id/labelDateNextDay4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="120dp"
+                    android:text="@string/labelDateNextDay4"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMorningNextDay4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMorningNextDay4"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMiddayNextDay4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMiddayNextDay4"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelEveningNextDay4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelEveningNextDay4"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/rowNextDay5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|top">
+
+                <TextView
+                    android:id="@+id/labelDateNextDay5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="120dp"
+                    android:text="@string/labelDateNextDay5"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMorningNextDay5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMorningNextDay5"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelMiddayNextDay5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelMiddayNextDay5"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/labelEveningNextDay5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="90dp"
+                    android:text="@string/labelEveningNextDay5"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </TableRow>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
