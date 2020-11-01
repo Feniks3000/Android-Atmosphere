@@ -6,446 +6,428 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <Spinner
+        android:id="@+id/spinnerCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelTempNow"
+        android:layout_width="@dimen/widthTempNow"
+        android:layout_height="wrap_content"
+        android:text="@string/tempNow"
+        android:textAlignment="center"
+        android:textSize="@dimen/textTempNow"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/spinnerCity"
+        app:layout_constraintTop_toTopOf="@+id/spinnerCity" />
+
+    <ImageView
+        android:id="@+id/imagePrecipitationNow"
+        android:layout_width="@dimen/widthImageTempNow"
+        android:layout_height="@dimen/heightImageTempNow"
+        android:background="@color/teal_200"
+        android:contentDescription="@string/imageTempNowDescription"
+        app:layout_constraintStart_toEndOf="@id/labelTempNow"
+        app:layout_constraintTop_toTopOf="@+id/spinnerCity" />
+
+    <TextView
+        android:id="@+id/labelNextHour1Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour1Description"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4HoursDescription"
+        app:layout_constraintStart_toStartOf="@+id/spinnerCity"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCity" />
+
+    <TextView
+        android:id="@+id/labelNextHour2Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour2Description"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4HoursDescription"
+        app:layout_constraintStart_toEndOf="@+id/labelNextHour1Description"
+        app:layout_constraintTop_toTopOf="@id/labelNextHour1Description" />
+
+    <TextView
+        android:id="@+id/labelNextHour3Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour3Description"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4HoursDescription"
+        app:layout_constraintStart_toEndOf="@+id/labelNextHour2Description"
+        app:layout_constraintTop_toTopOf="@id/labelNextHour2Description" />
+
+    <TextView
+        android:id="@+id/labelNextHour4Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour4Description"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4HoursDescription"
+        app:layout_constraintStart_toEndOf="@+id/labelNextHour3Description"
+        app:layout_constraintTop_toTopOf="@id/labelNextHour3Description" />
+
+    <TextView
+        android:id="@+id/labelNextHour1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour1"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4Hours"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelNextHour1Description"
+        app:layout_constraintTop_toBottomOf="@id/labelNextHour1Description" />
+
+    <TextView
+        android:id="@+id/labelNextHour2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour2"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4Hours"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelNextHour2Description"
+        app:layout_constraintTop_toTopOf="@id/labelNextHour1" />
+
+    <TextView
+        android:id="@+id/labelNextHour3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour3"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4Hours"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelNextHour3Description"
+        app:layout_constraintTop_toTopOf="@id/labelNextHour2" />
+
+    <TextView
+        android:id="@+id/labelNextHour4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/paddingLeftNext4Hours"
+        android:paddingEnd="@dimen/paddingRightNext4Hours"
+        android:text="@string/tempNextHour4"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext4Hours"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelNextHour4Description"
+        app:layout_constraintTop_toTopOf="@id/labelNextHour3" />
+
+    <TextView
+        android:id="@+id/labelNext5DaysHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="411dp">
+        android:layout_height="wrap_content"
+        android:text="@string/tempNext5DaysHeader"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="@dimen/textNext5DaysHeader"
+        android:textStyle="bold|italic"
+        android:paddingTop="@dimen/paddingTopNext5DaysHeader"
+        app:layout_constraintStart_toStartOf="@+id/labelNextHour1"
+        app:layout_constraintTop_toBottomOf="@id/labelNextHour1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/labelDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnDate"
+        android:text="@string/labelMorning"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5DaysColumnHeader"
+        app:layout_constraintStart_toStartOf="@+id/labelNext5DaysHeader"
+        app:layout_constraintTop_toBottomOf="@id/labelNext5DaysHeader" />
 
-            <Spinner
-                android:id="@+id/spinnerCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+    <TextView
+        android:id="@+id/labelMorning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMorning"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5DaysColumnHeader"
+        app:layout_constraintStart_toEndOf="@+id/labelDate"
+        app:layout_constraintTop_toTopOf="@id/labelDate" />
 
-            <TextView
-                android:id="@+id/labelTempNow"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tempNow"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+    <TextView
+        android:id="@+id/labelMidday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMidday"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5DaysColumnHeader"
+        app:layout_constraintStart_toEndOf="@+id/labelMorning"
+        app:layout_constraintTop_toTopOf="@id/labelMorning" />
 
-            <ImageView
-                android:id="@+id/imagePrecipitationNow"
-                android:layout_width="5dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#FFEB3B"
-                android:contentDescription="@string/imageTempNowDescription" />
+    <TextView
+        android:id="@+id/labelEvening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelEvening"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5DaysColumnHeader"
+        app:layout_constraintStart_toEndOf="@+id/labelMidday"
+        app:layout_constraintTop_toTopOf="@id/labelMidday" />
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/labelDateNextDay1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnDate"
+        android:text="@string/labelDateNextDay1"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelDate"
+        app:layout_constraintTop_toBottomOf="@id/labelDate" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top">
+    <TextView
+        android:id="@+id/labelMorningNextDay1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMorningNextDay1"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMorning"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay1" />
 
-            <TableRow
-                android:id="@+id/rowTempNext4HourDescription"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+    <TextView
+        android:id="@+id/labelMiddayNextDay1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMiddayNextDay1"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMidday"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay1" />
 
-                <TextView
-                    android:id="@+id/labelNextHour1Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour1Description"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
+    <TextView
+        android:id="@+id/labelEveningNextDay1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelEveningNextDay1"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelEvening"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay1" />
 
-                <TextView
-                    android:id="@+id/labelNextHour2Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour2Description"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
+    <TextView
+        android:id="@+id/labelDateNextDay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnDate"
+        android:text="@string/labelDateNextDay2"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelDate"
+        app:layout_constraintTop_toBottomOf="@id/labelDateNextDay1" />
 
-                <TextView
-                    android:id="@+id/labelNextHour3Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour3Description"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
+    <TextView
+        android:id="@+id/labelMorningNextDay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMorningNextDay2"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMorning"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay2" />
 
-                <TextView
-                    android:id="@+id/labelNextHour4Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour4Description"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-            </TableRow>
+    <TextView
+        android:id="@+id/labelMiddayNextDay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMiddayNextDay2"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMidday"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay2" />
 
-            <TableRow
-                android:id="@+id/rowTempNext4Hour"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="5dp">
+    <TextView
+        android:id="@+id/labelEveningNextDay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelEveningNextDay2"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelEvening"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay2" />
 
-                <TextView
-                    android:id="@+id/labelNextHour1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour1"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+    <TextView
+        android:id="@+id/labelDateNextDay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnDate"
+        android:text="@string/labelDateNextDay3"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelDate"
+        app:layout_constraintTop_toBottomOf="@id/labelDateNextDay2" />
 
-                <TextView
-                    android:id="@+id/labelNextHour2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour2"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+    <TextView
+        android:id="@+id/labelMorningNextDay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMorningNextDay3"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMorning"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay3" />
 
-                <TextView
-                    android:id="@+id/labelNextHour3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour3"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+    <TextView
+        android:id="@+id/labelMiddayNextDay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMiddayNextDay3"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMidday"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay3" />
 
-                <TextView
-                    android:id="@+id/labelNextHour4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="@string/tempNextHour4"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </TableRow>
+    <TextView
+        android:id="@+id/labelEveningNextDay3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelEveningNextDay3"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelEvening"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay3" />
 
-        </TableLayout>
+    <TextView
+        android:id="@+id/labelDateNextDay4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnDate"
+        android:text="@string/labelDateNextDay4"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelDate"
+        app:layout_constraintTop_toBottomOf="@id/labelDateNextDay3" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingTop="20dp">
+    <TextView
+        android:id="@+id/labelMorningNextDay4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMorningNextDay4"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMorning"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay4" />
 
-            <TextView
-                android:id="@+id/labelNext5DaysHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tempNext5DaysHeader"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:textStyle="bold|italic" />
+    <TextView
+        android:id="@+id/labelMiddayNextDay4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMiddayNextDay4"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMidday"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay4" />
 
-            <TableRow
-                android:id="@+id/rowTempNext5DaysDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal|top">
+    <TextView
+        android:id="@+id/labelEveningNextDay4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelEveningNextDay4"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelEvening"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay4" />
 
-                <TextView
-                    android:id="@+id/labelDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="120dp"
-                    android:text="@string/labelMorning"
-                    android:textAlignment="center"
-                    android:textSize="14sp" />
+    <TextView
+        android:id="@+id/labelDateNextDay5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnDate"
+        android:text="@string/labelDateNextDay5"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelDate"
+        app:layout_constraintTop_toBottomOf="@id/labelDateNextDay4" />
 
-                <TextView
-                    android:id="@+id/labelMorning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMorning"
-                    android:textAlignment="center"
-                    android:textSize="14sp" />
+    <TextView
+        android:id="@+id/labelMorningNextDay5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMorningNextDay5"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMorning"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay5" />
 
-                <TextView
-                    android:id="@+id/labelMidday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMidday"
-                    android:textAlignment="center"
-                    android:textSize="14sp" />
+    <TextView
+        android:id="@+id/labelMiddayNextDay5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelMiddayNextDay5"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelMidday"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay5" />
 
-                <TextView
-                    android:id="@+id/labelEvening"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelEvening"
-                    android:textAlignment="center"
-                    android:textSize="14sp" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/rowNextDay1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal|top">
-
-                <TextView
-                    android:id="@+id/labelDateNextDay1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="120dp"
-                    android:text="@string/labelDateNextDay1"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMorningNextDay1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMorningNextDay1"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMiddayNextDay1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMiddayNextDay1"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelEveningNextDay1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelEveningNextDay1"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/rowNextDay2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal|top">
-
-                <TextView
-                    android:id="@+id/labelDateNextDay2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="120dp"
-                    android:text="@string/labelDateNextDay2"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMorningNextDay2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMorningNextDay2"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMiddayNextDay2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMiddayNextDay2"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelEveningNextDay2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelEveningNextDay2"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/rowNextDay3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal|top">
-
-                <TextView
-                    android:id="@+id/labelDateNextDay3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="120dp"
-                    android:text="@string/labelDateNextDay3"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMorningNextDay3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMorningNextDay3"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMiddayNextDay3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMiddayNextDay3"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelEveningNextDay3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelEveningNextDay3"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/rowNextDay4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal|top">
-
-                <TextView
-                    android:id="@+id/labelDateNextDay4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="120dp"
-                    android:text="@string/labelDateNextDay4"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMorningNextDay4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMorningNextDay4"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMiddayNextDay4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMiddayNextDay4"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelEveningNextDay4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelEveningNextDay4"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/rowNextDay5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal|top">
-
-                <TextView
-                    android:id="@+id/labelDateNextDay5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="120dp"
-                    android:text="@string/labelDateNextDay5"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMorningNextDay5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMorningNextDay5"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelMiddayNextDay5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelMiddayNextDay5"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/labelEveningNextDay5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:width="90dp"
-                    android:text="@string/labelEveningNextDay5"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </TableRow>
-        </LinearLayout>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/labelEveningNextDay5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="@dimen/widthColumnsNext5Days"
+        android:text="@string/labelEveningNextDay5"
+        android:textAlignment="center"
+        android:textSize="@dimen/textNext5Days"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/labelEvening"
+        app:layout_constraintTop_toTopOf="@id/labelDateNextDay5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
