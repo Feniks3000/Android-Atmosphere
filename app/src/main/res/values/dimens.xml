@@ -6,8 +6,8 @@
     <dimen name="heightImageTempNow">30dp</dimen>
     <dimen name="textNext4HoursDescription">18sp</dimen>
     <dimen name="textNext4Hours">24sp</dimen>
-    <dimen name="paddingLeftNext4Hours">20dp</dimen>
-    <dimen name="paddingRightNext4Hours">20dp</dimen>
+    <dimen name="paddingLeftNext4Hours">0dp</dimen>
+    <dimen name="paddingRightNext4Hours">0dp</dimen>
     <dimen name="textNext5DaysHeader">18sp</dimen>
     <dimen name="paddingTopNext5DaysHeader">15dp</dimen>
     <dimen name="textNext5Days">24sp</dimen>

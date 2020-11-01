@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/labelTempNow"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -22,6 +23,7 @@
         android:textSize="@dimen/textTempNow"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/spinnerCity"
+        app:layout_constraintEnd_toStartOf="@id/imagePrecipitationNow"
         app:layout_constraintTop_toTopOf="@+id/spinnerCity" />
 
     <ImageView
@@ -31,6 +33,7 @@
         android:background="@color/teal_200"
         android:contentDescription="@string/imageTempNowDescription"
         app:layout_constraintStart_toEndOf="@id/labelTempNow"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinnerCity" />
 
     <TextView
@@ -42,7 +45,8 @@
         android:text="@string/tempNextHour1Description"
         android:textAlignment="center"
         android:textSize="@dimen/textNext4HoursDescription"
-        app:layout_constraintStart_toStartOf="@+id/spinnerCity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/labelNextHour2Description"
         app:layout_constraintTop_toBottomOf="@id/spinnerCity" />
 
     <TextView
@@ -55,6 +59,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext4HoursDescription"
         app:layout_constraintStart_toEndOf="@+id/labelNextHour1Description"
+        app:layout_constraintEnd_toStartOf="@+id/labelNextHour3Description"
         app:layout_constraintTop_toTopOf="@id/labelNextHour1Description" />
 
     <TextView
@@ -67,6 +72,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext4HoursDescription"
         app:layout_constraintStart_toEndOf="@+id/labelNextHour2Description"
+        app:layout_constraintEnd_toStartOf="@+id/labelNextHour4Description"
         app:layout_constraintTop_toTopOf="@id/labelNextHour2Description" />
 
     <TextView
@@ -79,6 +85,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext4HoursDescription"
         app:layout_constraintStart_toEndOf="@+id/labelNextHour3Description"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/labelNextHour3Description" />
 
     <TextView
@@ -91,7 +98,8 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext4Hours"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/labelNextHour1Description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/labelNextHour2"
         app:layout_constraintTop_toBottomOf="@id/labelNextHour1Description" />
 
     <TextView
@@ -104,7 +112,8 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext4Hours"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/labelNextHour2Description"
+        app:layout_constraintStart_toEndOf="@+id/labelNextHour1"
+        app:layout_constraintEnd_toStartOf="@+id/labelNextHour3"
         app:layout_constraintTop_toTopOf="@id/labelNextHour1" />
 
     <TextView
@@ -117,7 +126,8 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext4Hours"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/labelNextHour3Description"
+        app:layout_constraintStart_toEndOf="@+id/labelNextHour2"
+        app:layout_constraintEnd_toStartOf="@+id/labelNextHour4"
         app:layout_constraintTop_toTopOf="@id/labelNextHour2" />
 
     <TextView
@@ -130,7 +140,8 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext4Hours"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/labelNextHour4Description"
+        app:layout_constraintStart_toEndOf="@+id/labelNextHour3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/labelNextHour3" />
 
     <TextView
@@ -143,7 +154,8 @@
         android:textSize="@dimen/textNext5DaysHeader"
         android:textStyle="bold|italic"
         android:paddingTop="@dimen/paddingTopNext5DaysHeader"
-        app:layout_constraintStart_toStartOf="@+id/labelNextHour1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelNextHour1" />
 
     <TextView
@@ -154,7 +166,8 @@
         android:text="@string/labelMorning"
         android:textAlignment="center"
         android:textSize="@dimen/textNext5DaysColumnHeader"
-        app:layout_constraintStart_toStartOf="@+id/labelNext5DaysHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/labelMorning"
         app:layout_constraintTop_toBottomOf="@id/labelNext5DaysHeader" />
 
     <TextView
@@ -166,6 +179,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext5DaysColumnHeader"
         app:layout_constraintStart_toEndOf="@+id/labelDate"
+        app:layout_constraintEnd_toStartOf="@+id/labelMidday"
         app:layout_constraintTop_toTopOf="@id/labelDate" />
 
     <TextView
@@ -177,6 +191,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext5DaysColumnHeader"
         app:layout_constraintStart_toEndOf="@+id/labelMorning"
+        app:layout_constraintEnd_toStartOf="@+id/labelEvening"
         app:layout_constraintTop_toTopOf="@id/labelMorning" />
 
     <TextView
@@ -188,6 +203,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/textNext5DaysColumnHeader"
         app:layout_constraintStart_toEndOf="@+id/labelMidday"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/labelMidday" />
 
     <TextView
