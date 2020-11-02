@@ -33,7 +33,19 @@
         android:background="@color/teal_200"
         android:contentDescription="@string/imageTempNowDescription"
         app:layout_constraintStart_toEndOf="@id/labelTempNow"
+        app:layout_constraintEnd_toStartOf="@id/settingsButton"
+        app:layout_constraintTop_toTopOf="@+id/spinnerCity" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="openSettings"
+        android:text="@string/settings"
+        app:icon="@android:drawable/ic_menu_manage"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerCity"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imagePrecipitationNow"
         app:layout_constraintTop_toTopOf="@+id/spinnerCity" />
 
     <TextView
