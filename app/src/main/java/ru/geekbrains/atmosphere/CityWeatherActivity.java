@@ -3,6 +3,7 @@ package ru.geekbrains.atmosphere;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +15,6 @@ public class CityWeatherActivity extends AppCompatActivity {
 
     private static final String CLASS = CityWeatherActivity.class.getSimpleName();
 
-    private Spinner spinnerCity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,17 +24,13 @@ public class CityWeatherActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "onCreate", Toast.LENGTH_SHORT).show();
     }
 
-    public void openSettings(View view) {
-        setContentView(R.layout.settings);
-    }
-
-    public void saveSettings(View view) {
-        setContentView(R.layout.city_weather);
-        initCityWeather();
+    public void buttonOpenSettings(View view) {
+        Intent intent = new Intent(CityWeatherActivity.this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void initCityWeather() {
-        spinnerCity = findViewById(R.id.spinnerCity);
+        Spinner spinnerCity = findViewById(R.id.spinnerCity);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new String[]{"Moscow", "Kemerovo", "Novosibirsk"});
         spinnerCity.setAdapter(arrayAdapter);
     }
