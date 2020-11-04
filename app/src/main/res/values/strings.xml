@@ -1,4 +1,5 @@
 <resources>
+    <!-- city_weather -->
     <string name="app_name">Atmosphere</string>
     <string name="tempNow">-3</string>
     <string name="tempNextHour1">-3</string>
@@ -36,4 +37,19 @@
     <string name="labelMorning">Morning</string>
     <string name="labelMidday">Midday</string>
     <string name="labelEvening">Evening</string>
+    <string name="settings"/>
+
+    <!-- settings -->
+    <string name="themeHeader">Choose theme</string>
+    <string name="themeDay">Day</string>
+    <string name="themeNight">Night</string>
+    <string name="themeAuto">Auto</string>
+    <string name="weatherDetailHeader">Choose weather detail</string>
+    <string name="weatherDetailAll">Maximum info</string>
+    <string name="saveSettings">Save</string>
+
+    <!-- city choose -->
+    <string name="chooseCityHeader">Choose city</string>
+    <string name="chooseCityOk">Save city</string>
+
 </resources>
