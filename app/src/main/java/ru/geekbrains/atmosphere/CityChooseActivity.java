@@ -17,7 +17,7 @@ public class CityChooseActivity extends AppCompatActivity {
 
     public void initCityChoose() {
         Spinner spinnerCity = findViewById(R.id.spinnerCityChoose);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new String[]{"Moscow", "Kemerovo", "Novosibirsk"});
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.cities));
         spinnerCity.setAdapter(arrayAdapter);
     }
 }
