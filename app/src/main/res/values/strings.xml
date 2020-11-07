@@ -38,7 +38,7 @@
     <string name="labelMidday">Midday</string>
     <string name="labelEvening">Evening</string>
     <string name="settings">Settings</string>
-    <string name="webInfo">Find on Google</string>
+    <string name="webInfo">Find on net</string>
 
     <!-- settings -->
     <string name="themeHeader">Choose theme</string>
@@ -55,7 +55,6 @@
 
     <!-- about city -->
     <string name="weatherIn">weather in %s</string>
-    <string name="search">https://www.google.com/search?q=</string>
 
     <string-array name="cities">
         <item>Kemerovo</item>

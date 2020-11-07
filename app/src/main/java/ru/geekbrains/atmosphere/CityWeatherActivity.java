@@ -1,21 +1,16 @@
 package ru.geekbrains.atmosphere;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.SearchManager;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CityWeatherActivity extends AppCompatActivity {
 
@@ -44,17 +39,9 @@ public class CityWeatherActivity extends AppCompatActivity {
 
         buttonAboutCity = findViewById(R.id.webInfoButton);
         buttonAboutCity.setOnClickListener(view -> {
-            try {
-                String escapedQuery = URLEncoder.encode(String.format(getResources().getString(R.string.weatherIn), spinnerCity.getSelectedItem().toString()), "UTF-8");
-                if (LOGGING) {
-                    Log.i(CLASS, "go to " + getResources().getString(R.string.search) + escapedQuery);
-                }
-                Uri uri = Uri.parse(getResources().getString(R.string.search) + escapedQuery);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, String.format(getResources().getString(R.string.weatherIn), spinnerCity.getSelectedItem().toString()));
+            startActivity(intent);
         });
 
         if (LOGGING) {

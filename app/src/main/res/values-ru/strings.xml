@@ -39,7 +39,7 @@
     <string name="labelMidday">День</string>
     <string name="labelEvening">Вечер</string>
     <string name="settings">Настройки</string>
-    <string name="webInfo">Найти в Гугле</string>
+    <string name="webInfo">Найти в сети</string>
 
     <!-- settings -->
     <string name="themeHeader">Выберите тему</string>
@@ -56,7 +56,6 @@
 
     <!-- about city -->
     <string name="weatherIn">погода в %s</string>
-    <string name="search">https://www.google.com/search?q=</string>
 
     <string-array name="cities">
         <item>Кемерово</item>
