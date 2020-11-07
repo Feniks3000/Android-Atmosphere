@@ -12,14 +12,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CityWeatherActivity extends AppCompatActivity {
+import ru.geekbrains.atmosphere.settings.Settings;
+import ru.geekbrains.atmosphere.settings.SettingsActivity;
+
+public class CityWeatherActivity extends AppCompatActivity implements ExtraConstants {
 
     private static final String CLASS = CityWeatherActivity.class.getSimpleName();
+    private static final int SETTINGS_REQUEST_CODE = 1;
     private static final boolean LOGGING = false;
 
     private Button buttonSettings;
     private Button buttonAboutCity;
     private Spinner spinnerCity;
+
+    private Settings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +37,13 @@ public class CityWeatherActivity extends AppCompatActivity {
         spinnerCity = findViewById(R.id.spinnerCity);
         initCityWeather();
 
+        settings = initSettings();
+
         buttonSettings = findViewById(R.id.settingsButton);
         buttonSettings.setOnClickListener(view -> {
             Intent intent = new Intent(CityWeatherActivity.this, SettingsActivity.class);
-            startActivity(intent);
+            intent.putExtra(SETTINGS, settings);
+            startActivityForResult(intent, SETTINGS_REQUEST_CODE);
         });
 
         buttonAboutCity = findViewById(R.id.webInfoButton);
@@ -50,6 +59,15 @@ public class CityWeatherActivity extends AppCompatActivity {
         }
     }
 
+    private Settings initSettings() {
+        Settings settings = new Settings(Settings.DEFAULT_THEME, Settings.DEFAULT_ALL_DETAIL);
+        if (LOGGING) {
+            Log.i(CLASS, "initSettings " + settings);
+            Toast.makeText(getApplicationContext(), "initSettings " + settings, Toast.LENGTH_SHORT).show();
+        }
+        return settings;
+    }
+
     public void initCityWeather() {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.cities));
         spinnerCity.setAdapter(arrayAdapter);
@@ -61,6 +79,22 @@ public class CityWeatherActivity extends AppCompatActivity {
         if (LOGGING) {
             Log.i(CLASS, "onStart");
             Toast.makeText(getApplicationContext(), "onStart", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != SETTINGS_REQUEST_CODE) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
+        if (resultCode == RESULT_OK) {
+            settings = data.getParcelableExtra(SETTINGS);
+            if (LOGGING) {
+                Log.i(CLASS, "onActivityResult - received new settings " + settings);
+                Toast.makeText(getApplicationContext(), "onActivityResult - received new settings " + settings, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

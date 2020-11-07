@@ -20,7 +20,6 @@
         android:id="@+id/settingsTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/themeDay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityChooseHeader">
@@ -29,7 +28,6 @@
             android:id="@+id/themeDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="changeTheme"
             android:text="@string/themeDay" />
 
         <RadioButton
@@ -59,7 +57,6 @@
         android:id="@+id/weatherDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="true"
         android:text="@string/weatherDetailAll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
