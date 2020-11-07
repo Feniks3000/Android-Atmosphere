@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- city_weather -->
     <string name="app_name">Atmosphere</string>
@@ -10,8 +11,8 @@
     <string name="tempNextHour2Description">10:00</string>
     <string name="tempNextHour3Description">11:00</string>
     <string name="tempNextHour4Description">12:00</string>
-    <string name="imageTempNowDescription">sunny</string>
-    <string name="tempNext5DaysHeader">Weather for the next 5 days</string>
+    <string name="imageTempNowDescription">солнечно</string>
+    <string name="tempNext5DaysHeader">Погода на следующие 5 дней</string>
     <string name="tempNextDaysDescription">9:00</string>
     <string name="labelDateNextDay1">29.10</string>
     <string name="labelDateNextDay2">30.10</string>
@@ -33,35 +34,34 @@
     <string name="labelEveningNextDay3">-10</string>
     <string name="labelEveningNextDay4">-6</string>
     <string name="labelEveningNextDay5">-10</string>
-    <string name="labelDate">Date</string>
-    <string name="labelMorning">Morning</string>
-    <string name="labelMidday">Midday</string>
-    <string name="labelEvening">Evening</string>
-    <string name="settings">Settings</string>
-    <string name="webInfo">Find on Google</string>
+    <string name="labelDate">Дата</string>
+    <string name="labelMorning">Утро</string>
+    <string name="labelMidday">День</string>
+    <string name="labelEvening">Вечер</string>
+    <string name="settings">Настройки</string>
+    <string name="webInfo">Найти в Гугле</string>
 
     <!-- settings -->
-    <string name="themeHeader">Choose theme</string>
-    <string name="themeDay">Day</string>
-    <string name="themeNight">Night</string>
-    <string name="themeAuto">Auto</string>
-    <string name="weatherDetailHeader">Choose weather detail</string>
-    <string name="weatherDetailAll">Maximum info</string>
-    <string name="saveSettings">Save</string>
+    <string name="themeHeader">Выберите тему</string>
+    <string name="themeDay">Светлая</string>
+    <string name="themeNight">Тёмная</string>
+    <string name="themeAuto">Авто: Светлая/Тёмная</string>
+    <string name="weatherDetailHeader">Выберите детализацию</string>
+    <string name="weatherDetailAll">Максимум информации</string>
+    <string name="saveSettings">Сохранить</string>
 
     <!-- city choose -->
-    <string name="chooseCityHeader">Choose city</string>
-    <string name="chooseCityOk">Save city</string>
+    <string name="chooseCityHeader">Выберите город</string>
+    <string name="chooseCityOk">Сохранить город</string>
 
     <!-- about city -->
-    <string name="weatherIn">weather in %s</string>
+    <string name="weatherIn">погода в %s</string>
     <string name="search">https://www.google.com/search?q=</string>
 
     <string-array name="cities">
-        <item>Kemerovo</item>
-        <item>Moscow</item>
-        <item>Novosibirsk</item>
-        <item>St. Petersburg</item>
+        <item>Кемерово</item>
+        <item>Москва</item>
+        <item>Новосибирск</item>
+        <item>Санкт-Петербург</item>
     </string-array>
-    
 </resources>
