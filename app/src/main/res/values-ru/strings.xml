@@ -13,7 +13,6 @@
     <string name="tempNextHour4Description">12:00</string>
     <string name="imageTempNowDescription">солнечно</string>
     <string name="tempNext5DaysHeader">Погода на следующие 5 дней</string>
-    <string name="tempNextDaysDescription">9:00</string>
     <string name="labelDateNextDay1">29.10</string>
     <string name="labelDateNextDay2">30.10</string>
     <string name="labelDateNextDay3">31.10</string>
@@ -53,6 +52,7 @@
 
     <!-- city choose -->
     <string name="chooseCityHeader">Выберите город</string>
+    <string name="enterCityName">Введи название города</string>
     <string name="chooseCityOk">Добавить город</string>
 
     <!-- about city -->

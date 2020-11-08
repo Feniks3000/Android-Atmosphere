@@ -4,7 +4,7 @@ import android.app.Application;
 
 public class MyApp extends Application {
     private static MyApp instance;
-    private Storage storage = new Storage();
+    private final Storage storage = new Storage();
 
     @Override
     public void onCreate() {

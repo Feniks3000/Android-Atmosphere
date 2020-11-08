@@ -12,7 +12,6 @@
     <string name="tempNextHour4Description">12:00</string>
     <string name="imageTempNowDescription">sunny</string>
     <string name="tempNext5DaysHeader">Weather for the next 5 days</string>
-    <string name="tempNextDaysDescription">9:00</string>
     <string name="labelDateNextDay1">29.10</string>
     <string name="labelDateNextDay2">30.10</string>
     <string name="labelDateNextDay3">31.10</string>
@@ -52,6 +51,7 @@
 
     <!-- city choose -->
     <string name="chooseCityHeader">Choose city</string>
+    <string name="enterCityName">Enter city name</string>
     <string name="chooseCityOk">Add city</string>
 
     <!-- about city -->

@@ -19,12 +19,10 @@ public class Cities implements Parcelable {
     }
 
     public void addCity(String city) {
-        if (cities != null) {
-            cities.add(city);
-        } else {
+        if (cities == null) {
             cities = new ArrayList<>();
-            cities.add(city);
         }
+        cities.add(city);
     }
 
     @Override
