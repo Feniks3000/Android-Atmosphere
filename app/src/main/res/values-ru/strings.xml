@@ -48,11 +48,12 @@
     <string name="themeAuto">Авто: Светлая/Тёмная</string>
     <string name="weatherDetailHeader">Выберите детализацию</string>
     <string name="weatherDetailAll">Максимум информации</string>
+    <string name="citiesHeader">Ваши города</string>
     <string name="saveSettings">Сохранить</string>
 
     <!-- city choose -->
     <string name="chooseCityHeader">Выберите город</string>
-    <string name="chooseCityOk">Сохранить город</string>
+    <string name="chooseCityOk">Добавить город</string>
 
     <!-- about city -->
     <string name="weatherIn">погода в %s</string>

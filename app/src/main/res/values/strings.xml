@@ -47,11 +47,12 @@
     <string name="themeAuto">Auto</string>
     <string name="weatherDetailHeader">Choose weather detail</string>
     <string name="weatherDetailAll">Maximum info</string>
+    <string name="citiesHeader">Your cities</string>
     <string name="saveSettings">Save</string>
 
     <!-- city choose -->
     <string name="chooseCityHeader">Choose city</string>
-    <string name="chooseCityOk">Save city</string>
+    <string name="chooseCityOk">Add city</string>
 
     <!-- about city -->
     <string name="weatherIn">weather in %s</string>

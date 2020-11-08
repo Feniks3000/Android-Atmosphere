@@ -1,23 +1,36 @@
 package ru.geekbrains.atmosphere;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CityChooseActivity extends AppCompatActivity {
+import ru.geekbrains.atmosphere.settings.Cities;
+
+public class CityChooseActivity extends AppCompatActivity implements ExtraConstants {
+
+    private EditText newCity;
+    private Button addCity;
+    private Cities cities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.city_choose);
-        initCityChoose();
-    }
 
-    public void initCityChoose() {
-        Spinner spinnerCity = findViewById(R.id.spinnerCityChoose);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.cities));
-        spinnerCity.setAdapter(arrayAdapter);
+        cities = getIntent().getParcelableExtra(CITIES);
+
+        newCity = findViewById(R.id.cityChooseText);
+
+        addCity = findViewById(R.id.addCity);
+        addCity.setOnClickListener(view -> {
+            Intent intentResult = new Intent();
+            cities.addCity(newCity.getText().toString());
+            intentResult.putExtra(CITIES, cities);
+            setResult(RESULT_OK, intentResult);
+            finish();
+        });
     }
 }
