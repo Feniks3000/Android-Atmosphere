@@ -6,22 +6,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CityWeatherActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <fragment
             android:name="ru.geekbrains.atmosphere.CityWeatherFragment"
             android:id="@+id/weatherFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/weatherButtonsFragment" />
-        <fragment
-            android:name="ru.geekbrains.atmosphere.CityWeatherButtonsFragment"
-            android:id="@+id/weatherButtonsFragment"
+            app:layout_constraintBottom_toTopOf="@id/buttonsFragment" />
+        <FrameLayout
+            android:id="@+id/buttonsFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/weatherFragment"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="?android:attr/detailsElementBackground">
+        </FrameLayout>
+    </LinearLayout>
 </ScrollView>

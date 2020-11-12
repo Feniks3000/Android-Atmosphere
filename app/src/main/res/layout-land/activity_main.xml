@@ -21,11 +21,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="?android:attr/detailsElementBackground">
-        <fragment
-            android:name="ru.geekbrains.atmosphere.CityWeatherButtonsFragment"
-            android:id="@+id/weatherButtonsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
     </FrameLayout>
 
 </LinearLayout>
