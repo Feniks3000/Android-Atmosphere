@@ -10,14 +10,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Atmosphere">
-        <activity android:name=".CityWeatherActivity">
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CityChooseActivity"/>
-        <activity android:name=".settings.SettingsActivity"/>
+        <activity android:name=".CityWeatherActivity"/>
+        <activity android:name=".CityChooseActivity" />
+        <activity android:name=".settings.SettingsActivity" />
     </application>
 
 </manifest>
