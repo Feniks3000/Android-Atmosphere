@@ -15,5 +15,6 @@
     <dimen name="widthColumnDate">120dp</dimen>
     <dimen name="widthColumnsNext5Days">90dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="empty">0px</dimen>
 
 </resources>

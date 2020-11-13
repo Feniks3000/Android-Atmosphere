@@ -17,7 +17,7 @@
 
     <FrameLayout
         android:id="@+id/infoFragment"
-        android:layout_width="0px"
+        android:layout_width="@dimen/empty"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="?android:attr/detailsElementBackground">

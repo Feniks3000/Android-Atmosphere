@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity implements ExtraConstants {
 
     private Settings settings;
     private Cities cities;
+    private MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = this;
         setContentView(R.layout.activity_main);
         landscapeOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
@@ -45,11 +47,11 @@ public class MainActivity extends AppCompatActivity implements ExtraConstants {
         cities = initCities();
 
         spinnerCity = findViewById(R.id.spinnerCity);
-        initCityWeather(cities);
+        updateSettingsAndCities(settings, cities);
         spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CityWeatherButtonsFragment buttonsFragment = CityWeatherButtonsFragment.create(spinnerCity.getSelectedItem().toString());
+                CityWeatherButtonsFragment buttonsFragment = CityWeatherButtonsFragment.create(spinnerCity.getSelectedItem().toString(), settings, cities, landscapeOrientation, mainActivity);
                 if (landscapeOrientation) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, buttonsFragment).commit();
                 } else {
@@ -104,29 +106,12 @@ public class MainActivity extends AppCompatActivity implements ExtraConstants {
         return settings;
     }
 
-    public void initCityWeather(Cities cities) {
+    public void updateSettingsAndCities(Settings settings, Cities cities) {
+        this.settings = settings;
+        this.cities = cities;
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cities.getCities().toArray(new String[0]));
         spinnerCity.setAdapter(arrayAdapter);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode != SETTINGS_REQUEST_CODE) {
-            super.onActivityResult(requestCode, resultCode, data);
-            return;
-        }
-
-        if (resultCode == RESULT_OK) {
-            settings = data.getParcelableExtra(SETTINGS);
-            cities = data.getParcelableExtra(CITIES);
-            initCityWeather(cities);
-            if (LOGGING) {
-                Log.i(CLASS, "onActivityResult - received new settings " + settings);
-                Toast.makeText(getApplicationContext(), "onActivityResult - received new settings " + settings, Toast.LENGTH_SHORT).show();
-                Log.i(CLASS, "onActivityResult - received new cities " + cities);
-                Toast.makeText(getApplicationContext(), "onActivityResult - received new cities " + cities, Toast.LENGTH_SHORT).show();
-            }
-        }
+        spinnerCity.setSelection(spinnerCity.getFirstVisiblePosition());
     }
 
 }
