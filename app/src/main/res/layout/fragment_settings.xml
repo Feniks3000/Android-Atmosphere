@@ -6,99 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".SettingsFragment">
 
-    <ScrollView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/cityChooseHeader"
-                android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/cityChooseHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/themeHeader"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/settingsTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cityChooseHeader">
+
+            <RadioButton
+                android:id="@+id/themeDay"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/themeHeader"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/themeDay" />
 
-            <RadioGroup
-                android:id="@+id/settingsTheme"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/themeNight"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cityChooseHeader">
+                android:text="@string/themeNight" />
 
-                <RadioButton
-                    android:id="@+id/themeDay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/themeDay" />
-
-                <RadioButton
-                    android:id="@+id/themeNight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/themeNight" />
-
-                <RadioButton
-                    android:id="@+id/themeAuto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/themeAuto" />
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/settingsWeatherDetailHeader"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/themeAuto"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/weatherDetailHeader"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/settingsTheme" />
+                android:text="@string/themeAuto" />
+        </RadioGroup>
 
-            <Switch
-                android:id="@+id/weatherDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/weatherDetailAll"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settingsWeatherDetailHeader" />
+        <TextView
+            android:id="@+id/settingsWeatherDetailHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weatherDetailHeader"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settingsTheme" />
 
-            <TextView
-                android:id="@+id/settingsCitiesHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/citiesHeader"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/weatherDetail" />
+        <Switch
+            android:id="@+id/weatherDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weatherDetailAll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settingsWeatherDetailHeader" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cityList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settingsCitiesHeader"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/city_item" />
+        <TextView
+            android:id="@+id/settingsCitiesHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/citiesHeader"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weatherDetail" />
 
-            <Button
-                android:id="@+id/saveSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/saveSettings"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cityList" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cityList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settingsCitiesHeader"
+            tools:listitem="@layout/city_item" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <Button
+            android:id="@+id/saveSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saveSettings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cityList" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

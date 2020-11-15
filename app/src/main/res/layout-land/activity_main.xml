@@ -15,12 +15,16 @@
             android:layout_height="wrap_content"/>
     </ScrollView>
 
-    <FrameLayout
-        android:id="@+id/infoFragment"
+    <ScrollView
         android:layout_width="@dimen/empty"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="?android:attr/detailsElementBackground">
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <FrameLayout
+            android:id="@+id/infoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/detailsElementBackground">
+        </FrameLayout>
+    </ScrollView>
 
 </LinearLayout>

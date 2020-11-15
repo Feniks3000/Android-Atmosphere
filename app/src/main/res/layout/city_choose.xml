@@ -1,43 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".CityChooseActivity">
 
-    <TextView
-        android:id="@+id/cityChooseHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chooseCityHeader"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/cityChooseText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="8"
-        android:inputType="text"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityChooseHeader"
-        android:hint="@string/enterCityName"
-        android:autofillHints="@string/enterCityName" />
-
-    <Button
-        android:id="@+id/addCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chooseCityOk"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cityChooseText"
-        tools:layout_editor_absoluteY="88dp" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <fragment
+        android:name="ru.geekbrains.atmosphere.CityChooseFragment"
+        android:id="@+id/cityChooseFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</ScrollView>

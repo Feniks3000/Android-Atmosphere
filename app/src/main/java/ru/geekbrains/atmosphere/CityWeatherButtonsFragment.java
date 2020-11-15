@@ -20,30 +20,24 @@ import ru.geekbrains.atmosphere.settings.SettingsActivity;
 public class CityWeatherButtonsFragment extends Fragment implements View.OnClickListener, ExtraConstants {
 
     private static final String CLASS = CityWeatherButtonsFragment.class.getSimpleName();
-    private static final int SETTINGS_REQUEST_CODE = 1;
     private static final boolean LOGGING = false;
-
-    private View view;
-    private Button buttonSettings;
-    private Button buttonAboutCity;
 
     private String city;
     private Settings settings;
     private Cities cities;
     private boolean landscapeOrientation;
-    private static MainActivity mainActivity;
+    private MainActivity mainActivity;
 
     public CityWeatherButtonsFragment() {
     }
 
-    public static CityWeatherButtonsFragment create(String city, Settings settings, Cities cities, boolean landscapeOrientation, MainActivity activity) {
+    public static CityWeatherButtonsFragment create(String city, Settings settings, Cities cities, boolean landscapeOrientation) {
         CityWeatherButtonsFragment fragment = new CityWeatherButtonsFragment();
         Bundle args = new Bundle();
         args.putString(CITY, city);
         args.putParcelable(SETTINGS, settings);
         args.putParcelable(CITIES, cities);
         args.putBoolean(LANDSCAPE_ORIENTATION, landscapeOrientation);
-        CityWeatherButtonsFragment.mainActivity = activity;
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,33 +51,31 @@ public class CityWeatherButtonsFragment extends Fragment implements View.OnClick
             cities = getArguments().getParcelable(CITIES);
             landscapeOrientation = getArguments().getBoolean(LANDSCAPE_ORIENTATION);
         }
+        mainActivity = (MainActivity) getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_city_weather_buttons, container, false);
+        View view = inflater.inflate(R.layout.fragment_city_weather_buttons, container, false);
 
-        buttonSettings = view.findViewById(R.id.settingsButton);
-        buttonSettings.setOnClickListener(view -> {
-            Toast.makeText(getActivity(), "buttonSettings", Toast.LENGTH_SHORT).show();
+        Button buttonSettings = view.findViewById(R.id.settingsButton);
+        buttonSettings.setOnClickListener(button -> {
+            if (LOGGING) {
+                Toast.makeText(getActivity(), String.format("landscape orientation %b", landscapeOrientation), Toast.LENGTH_SHORT).show();
+                Log.i(CLASS, String.format("landscape orientation %b", landscapeOrientation));
+            }
             if (landscapeOrientation) {
-                Toast.makeText(getActivity(), "buttonSettings - land", Toast.LENGTH_SHORT).show();
-                Log.i("buttonSettings", String.valueOf(landscapeOrientation));
-                SettingsFragment settingsFragment = new SettingsFragment();
-                mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, settingsFragment).commit();
+                mainActivity.changeFragment(R.id.infoFragment, SettingsFragment.create(settings, cities, landscapeOrientation));
             } else {
-                Toast.makeText(getActivity(), "buttonSettings - no land", Toast.LENGTH_SHORT).show();
-                Log.i("buttonSettings", String.valueOf(landscapeOrientation));
                 Intent intent = new Intent(getContext(), SettingsActivity.class);
                 intent.putExtra(SETTINGS, settings);
                 intent.putExtra(CITIES, cities);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, SETTINGS_REQUEST_CODE);
             }
         });
 
-        buttonAboutCity = view.findViewById(R.id.webInfoButton);
-        buttonAboutCity.setOnClickListener(view -> {
-            Toast.makeText(getActivity(), "buttonAboutCity", Toast.LENGTH_SHORT).show();
+        Button buttonAboutCity = view.findViewById(R.id.webInfoButton);
+        buttonAboutCity.setOnClickListener(button -> {
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
             intent.putExtra(SearchManager.QUERY, String.format(getResources().getString(R.string.weatherIn), city));
             startActivity(intent);
