@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.Objects;
+
 import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
@@ -46,8 +48,10 @@ public class CityChooseFragment extends Fragment implements View.OnClickListener
             cities = getArguments().getParcelable(CITIES);
             landscapeOrientation = getArguments().getBoolean(LANDSCAPE_ORIENTATION);
         } else {
-            settings = MyApp.getInstance().getStorage().getSettings();
-            cities = MyApp.getInstance().getStorage().getCities();
+            settings = Objects.requireNonNull(getActivity()).getIntent().getParcelableExtra(SETTINGS);
+            cities = Objects.requireNonNull(getActivity()).getIntent().getParcelableExtra(CITIES);
+//            settings = MyApp.getInstance().getStorage().getSettings();
+//            cities = MyApp.getInstance().getStorage().getCities();
             landscapeOrientation = false;
         }
         if (landscapeOrientation) {
