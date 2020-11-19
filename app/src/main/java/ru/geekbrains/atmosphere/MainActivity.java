@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements Updatable, ExtraC
             if (needCityWeather) {
                 updateCityWeatherFragment();
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
         } else {
             if (needCityWeather) {
                 getSupportFragmentManager().beginTransaction().remove(activeFragment).commit();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements Updatable, ExtraC
             } else {
                 getSupportFragmentManager().beginTransaction().remove(cityWeatherFragment).commit();
                 getSupportFragmentManager().beginTransaction().remove(buttonsFragment).commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
             }
             activeFragment = fragment;
         }
