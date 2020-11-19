@@ -1,32 +1,34 @@
 package ru.geekbrains.atmosphere;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
 import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
-public class CityChooseFragment extends Fragment implements View.OnClickListener, ExtraConstants {
+public class ButtonsFragment extends Fragment implements View.OnClickListener, ExtraConstants {
 
-    private static final String CLASS = CityChooseFragment.class.getSimpleName();
+    private static final String CLASS = ButtonsFragment.class.getSimpleName();
     private static final boolean LOGGING = false;
 
+    private String city;
     private Settings settings;
     private Cities cities;
     private MainActivity mainActivity;
 
-    public CityChooseFragment() {
+    public ButtonsFragment() {
     }
 
-    public static CityChooseFragment create(Settings settings, Cities cities) {
-        CityChooseFragment fragment = new CityChooseFragment();
+    public static ButtonsFragment create(Settings settings, Cities cities) {
+        ButtonsFragment fragment = new ButtonsFragment();
         Bundle args = new Bundle();
         args.putParcelable(SETTINGS, settings);
         args.putParcelable(CITIES, cities);
@@ -51,14 +53,18 @@ public class CityChooseFragment extends Fragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_city_choose, container, false);
+        View view = inflater.inflate(R.layout.fragment_buttons, container, false);
 
-        EditText newCity = view.findViewById(R.id.cityChooseText);
-
-        Button addCity = view.findViewById(R.id.addCity);
-        addCity.setOnClickListener(button -> {
-            cities.addCity(newCity.getText().toString());
+        Button buttonSettings = view.findViewById(R.id.settingsButton);
+        buttonSettings.setOnClickListener(button -> {
             mainActivity.changeFragment(SettingsFragment.create(settings, cities), false);
+        });
+
+        Button buttonAboutCity = view.findViewById(R.id.webInfoButton);
+        buttonAboutCity.setOnClickListener(button -> {
+            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+            intent.putExtra(SearchManager.QUERY, String.format(getResources().getString(R.string.weatherIn), mainActivity.getActiveCity()));
+            startActivity(intent);
         });
         return view;
     }

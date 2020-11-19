@@ -3,108 +3,132 @@ package ru.geekbrains.atmosphere;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
+import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
 import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
-public class MainActivity extends AppCompatActivity implements ExtraConstants {
+public class MainActivity extends AppCompatActivity implements Updatable, ExtraConstants {
 
-    private static final String CLASS = CityWeatherActivity.class.getSimpleName();
+    private static final String CLASS = MainActivity.class.getSimpleName();
     private static final boolean LOGGING = false;
 
     private boolean landscapeOrientation;
-    private Spinner spinnerCity;
+    private CityWeatherSource dataSource;
+    private Settings settings;
+    private Cities cities;
+    private String activeCity;
+
+    CityWeatherFragment cityWeatherFragment;
+    ButtonsFragment buttonsFragment;
+    Fragment activeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Инициализируем основные параметры приложения
+        if (savedInstanceState == null) {
+            initApp();
+        } else {
+            restoreApp(savedInstanceState);
+        }
+
+        if (LOGGING) {
+            Log.d(CLASS, "OnCreate. Landscape orientation - " + landscapeOrientation);
+            Log.d(CLASS, "OnCreate. Data source - " + dataSource);
+            Log.d(CLASS, "OnCreate. Settings - " + settings);
+            Log.d(CLASS, "OnCreate. Cities - " + cities);
+        }
+
+        createCityWeatherFragment();    // Создаем основной фрагмент с погодой
+        createButtonsFragment();        // Создаем фрагмент с кнопками
+    }
+
+    private void restoreApp(Bundle savedInstanceState) {
         landscapeOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-
-        Toast.makeText(getApplicationContext(), String.valueOf(MyApp.getInstance().getStorage().incCounter()), Toast.LENGTH_SHORT).show();
-
-        spinnerCity = findViewById(R.id.spinnerCity);
-        updateSettingsAndCities(getSettings(), getCities());
-        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CityWeatherButtonsFragment buttonsFragment = CityWeatherButtonsFragment.create(spinnerCity.getSelectedItem().toString(), getSettings(), getCities(), landscapeOrientation);
-                if (landscapeOrientation) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, buttonsFragment).commit();
-                } else {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.buttonsFragment, buttonsFragment).commit();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        settings = savedInstanceState.getParcelable(SETTINGS);
+        cities = savedInstanceState.getParcelable(CITIES);
+        activeCity = savedInstanceState.getString(ACTIVE_CITY);
+        dataSource = savedInstanceState.getParcelable(DATA_SOURCE);
     }
 
-    private Cities initCities() {
-        Cities cities = new Cities(getResources().getStringArray(R.array.cities));
-        if (LOGGING) {
-            Log.i(CLASS, "initCities " + cities);
-            Toast.makeText(getApplicationContext(), "initCities " + cities, Toast.LENGTH_SHORT).show();
-        }
-        return cities;
+    private void initApp() {
+        cities = new Cities(getResources().getStringArray(R.array.cities));
+        settings = new Settings(Settings.DEFAULT_THEME, Settings.DEFAULT_ALL_DETAIL);
+        landscapeOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        activeCity = cities.getFirstCity();
+        dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
     }
 
-    private Settings initSettings() {
-        Settings settings = new Settings(Settings.DEFAULT_THEME, Settings.DEFAULT_ALL_DETAIL);
-        if (LOGGING) {
-            Log.i(CLASS, "initSettings " + settings);
-            Toast.makeText(getApplicationContext(), "initSettings " + settings, Toast.LENGTH_SHORT).show();
-        }
-        return settings;
+    private void createCityWeatherFragment() {
+        cityWeatherFragment = CityWeatherFragment.create(dataSource, landscapeOrientation);
+        getSupportFragmentManager().beginTransaction().replace(R.id.weatherFragment, cityWeatherFragment).commit();
     }
 
-    public void updateSettingsAndCities(Settings settings, Cities cities) {
-        setSettings(settings);
-        setCities(cities);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cities.getCities().toArray(new String[0]));
-        spinnerCity.setAdapter(arrayAdapter);
-        spinnerCity.setSelection(spinnerCity.getFirstVisiblePosition());
+    private void updateCityWeatherFragment() {
+        dataSource.rebuild(cities);
+        createCityWeatherFragment();
     }
 
-    public void changeFragment(int containerViewId, androidx.fragment.app.Fragment fragment) {
+    private void createButtonsFragment() {
+        buttonsFragment = ButtonsFragment.create(settings, cities);
         if (landscapeOrientation) {
-            getSupportFragmentManager().beginTransaction().replace(containerViewId, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, buttonsFragment).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.buttonsFragment, buttonsFragment).commit();
         }
     }
 
-    private Settings getSettings() {
-        Settings settings = MyApp.getInstance().getStorage().getSettings();
-        if (settings == null) {
-            settings = initSettings();
-            setSettings(initSettings());
+    // Заменяем фрагменты в макете
+    public void changeFragment(androidx.fragment.app.Fragment fragment, boolean needCityWeather) {
+        if (landscapeOrientation) {
+            if (needCityWeather) {
+                updateCityWeatherFragment();
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, fragment).commit();
+        } else {
+            if (needCityWeather) {
+                getSupportFragmentManager().beginTransaction().remove(activeFragment).commit();
+                updateCityWeatherFragment();
+                createButtonsFragment();
+            } else {
+                getSupportFragmentManager().beginTransaction().remove(cityWeatherFragment).commit();
+                getSupportFragmentManager().beginTransaction().remove(buttonsFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).commit();
+            }
+            activeFragment = fragment;
         }
-        return settings;
     }
 
-    void setSettings(Settings settings) {
-        MyApp.getInstance().getStorage().setSettings(settings);
+    @Override
+    public void updateSettingsAndCities(Settings settings, Cities cities) {
+        this.settings = settings;
+        this.cities = cities;
     }
 
-    private Cities getCities() {
-        Cities cities = MyApp.getInstance().getStorage().getCities();
-        if (cities == null) {
-            cities = initCities();
-            setCities(cities);
-        }
-        return cities;
+    @Override
+    public void updateActiveCity(String activeCity) {
+        this.activeCity = activeCity;
     }
 
-    void setCities(Cities cities) {
-        MyApp.getInstance().getStorage().setCities(cities);
+    public String getActiveCity() {
+        return activeCity;
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.i(CLASS, "onSaveInstanceState");
+        outState.putParcelable(SETTINGS, settings);
+        outState.putParcelable(CITIES, cities);
+        outState.putString(ACTIVE_CITY, activeCity);
+        outState.putParcelable(DATA_SOURCE, dataSource);
+        super.onSaveInstanceState(outState);
+    }
 }
