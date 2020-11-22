@@ -13,7 +13,13 @@ import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
 import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
-public class MainActivity extends AppCompatActivity implements SettingsFragment.OnUpdateSettingsAndCitiesListener, CityWeatherFragment.OnUpdateActiveCityListener, ExtraConstants {
+public class MainActivity extends AppCompatActivity
+        implements
+        SettingsFragment.OnUpdateSettingsAndCitiesListener,
+        CityWeatherFragment.OnUpdateActiveCityListener,
+        ButtonsFragment.GetDataListener,
+        OnChangeFragmentListener,
+        ExtraConstants {
 
     private static final String CLASS = MainActivity.class.getSimpleName();
     private static final boolean LOGGING = false;
@@ -87,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
     }
 
     // Заменяем фрагменты в макете
-    public void changeFragment(androidx.fragment.app.Fragment fragment, boolean needCityWeather) {
+    @Override
+    public void onChangeFragment(androidx.fragment.app.Fragment fragment, boolean needCityWeather) {
         if (landscapeOrientation) {
             if (needCityWeather) {
                 updateCityWeatherFragment();
@@ -118,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements SettingsFragment.
         this.activeCity = activeCity;
     }
 
+    @Override
     public String getActiveCity() {
         return activeCity;
     }

@@ -1,6 +1,7 @@
 package ru.geekbrains.atmosphere;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import ru.geekbrains.atmosphere.settings.Cities;
@@ -19,10 +21,11 @@ public class ButtonsFragment extends Fragment implements View.OnClickListener, E
     private static final String CLASS = ButtonsFragment.class.getSimpleName();
     private static final boolean LOGGING = false;
 
-    private String city;
+    private OnChangeFragmentListener onChangeFragmentListener;
+    private GetDataListener getDataListener;
+
     private Settings settings;
     private Cities cities;
-    private MainActivity mainActivity;
 
     public ButtonsFragment() {
     }
@@ -43,7 +46,6 @@ public class ButtonsFragment extends Fragment implements View.OnClickListener, E
             settings = getArguments().getParcelable(SETTINGS);
             cities = getArguments().getParcelable(CITIES);
         }
-        mainActivity = (MainActivity) getActivity();
 
         if (LOGGING) {
             Log.d(CLASS, "OnCreate. Settings - " + settings);
@@ -57,13 +59,13 @@ public class ButtonsFragment extends Fragment implements View.OnClickListener, E
 
         Button buttonSettings = view.findViewById(R.id.settingsButton);
         buttonSettings.setOnClickListener(button -> {
-            mainActivity.changeFragment(SettingsFragment.create(settings, cities), false);
+            onChangeFragmentListener.onChangeFragment(SettingsFragment.create(settings, cities), false);
         });
 
         Button buttonAboutCity = view.findViewById(R.id.webInfoButton);
         buttonAboutCity.setOnClickListener(button -> {
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-            intent.putExtra(SearchManager.QUERY, String.format(getResources().getString(R.string.weatherIn), mainActivity.getActiveCity()));
+            intent.putExtra(SearchManager.QUERY, String.format(getResources().getString(R.string.weatherIn), getDataListener.getActiveCity()));
             startActivity(intent);
         });
         return view;
@@ -71,5 +73,20 @@ public class ButtonsFragment extends Fragment implements View.OnClickListener, E
 
     @Override
     public void onClick(View v) {
+    }
+
+    public interface GetDataListener {
+        String getActiveCity();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnChangeFragmentListener) {
+            onChangeFragmentListener = (OnChangeFragmentListener) context;
+        }
+        if (context instanceof GetDataListener) {
+            getDataListener = (GetDataListener) context;
+        }
     }
 }

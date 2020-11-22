@@ -1,5 +1,6 @@
 package ru.geekbrains.atmosphere;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import ru.geekbrains.atmosphere.settings.Cities;
@@ -18,9 +20,10 @@ public class CityChooseFragment extends Fragment implements View.OnClickListener
     private static final String CLASS = CityChooseFragment.class.getSimpleName();
     private static final boolean LOGGING = false;
 
+    private OnChangeFragmentListener onChangeFragmentListener;
+
     private Settings settings;
     private Cities cities;
-    private MainActivity mainActivity;
 
     public CityChooseFragment() {
     }
@@ -41,7 +44,6 @@ public class CityChooseFragment extends Fragment implements View.OnClickListener
             settings = getArguments().getParcelable(SETTINGS);
             cities = getArguments().getParcelable(CITIES);
         }
-        mainActivity = (MainActivity) getActivity();
 
         if (LOGGING) {
             Log.d(CLASS, "OnCreate. Settings - " + settings);
@@ -58,12 +60,20 @@ public class CityChooseFragment extends Fragment implements View.OnClickListener
         Button addCity = view.findViewById(R.id.addCity);
         addCity.setOnClickListener(button -> {
             cities.addCity(newCity.getText().toString());
-            mainActivity.changeFragment(SettingsFragment.create(settings, cities), false);
+            onChangeFragmentListener.onChangeFragment(SettingsFragment.create(settings, cities), false);
         });
         return view;
     }
 
     @Override
     public void onClick(View v) {
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnChangeFragmentListener) {
+            onChangeFragmentListener = (OnChangeFragmentListener) context;
+        }
     }
 }

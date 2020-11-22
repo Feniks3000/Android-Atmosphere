@@ -25,14 +25,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private static final String CLASS = SettingsFragment.class.getSimpleName();
     private static final boolean LOGGING = false;
 
-    private OnUpdateSettingsAndCitiesListener mainActivityListener;
+    private OnUpdateSettingsAndCitiesListener onUpdateSettingsAndCitiesListener;
+    private OnChangeFragmentListener onChangeFragmentListener;
 
     private RadioGroup settingTheme;
     private Switch settingWeatherDetail;
 
     private Settings settings;
     private Cities cities;
-    private MainActivity mainActivity;
 
     public SettingsFragment() {
     }
@@ -53,7 +53,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             settings = getArguments().getParcelable(SETTINGS);
             cities = getArguments().getParcelable(CITIES);
         }
-        mainActivity = (MainActivity) getActivity();
 
         if (LOGGING) {
             Log.d(CLASS, "OnCreate. Settings - " + settings);
@@ -76,15 +75,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             settings.setTheme(settingTheme.indexOfChild(settingTheme.findViewById(settingTheme.getCheckedRadioButtonId())));
             settings.setAllDetail(settingWeatherDetail.isChecked());
 
-            mainActivityListener.onUpdateSettingsAndCities(settings, cities);
-            mainActivity.changeFragment(ButtonsFragment.create(settings, cities), true);
+            onUpdateSettingsAndCitiesListener.onUpdateSettingsAndCities(settings, cities);
+            onChangeFragmentListener.onChangeFragment(ButtonsFragment.create(settings, cities), true);
         });
 
         TextView addCity = view.findViewById(R.id.settingsCitiesHeader);
         addCity.setOnClickListener(button -> {
             settings.setTheme(settingTheme.indexOfChild(settingTheme.findViewById(settingTheme.getCheckedRadioButtonId())));
             settings.setAllDetail(settingWeatherDetail.isChecked());
-            mainActivity.changeFragment(CityChooseFragment.create(settings, cities), false);
+            onChangeFragmentListener.onChangeFragment(CityChooseFragment.create(settings, cities), false);
         });
 
         // TODO: Need remove cities from the list
@@ -107,9 +106,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnUpdateSettingsAndCitiesListener) {
-            mainActivityListener = (OnUpdateSettingsAndCitiesListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnUpdateSettingsAndCitiesListener");
+            onUpdateSettingsAndCitiesListener = (OnUpdateSettingsAndCitiesListener) context;
+        }
+        if (context instanceof OnChangeFragmentListener) {
+            onChangeFragmentListener = (OnChangeFragmentListener) context;
         }
     }
 }
