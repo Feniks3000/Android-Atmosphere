@@ -1,6 +1,7 @@
 package ru.geekbrains.atmosphere;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,9 +25,10 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
     private static final String CLASS = CityWeatherFragment.class.getSimpleName();
     private static final boolean LOGGING = false;
 
+    private OnUpdateActiveCityListener mainActivityListener;
+
     private CityWeatherSource cityWeatherSource;
     private boolean landscapeOrientation;
-    private MainActivity mainActivity;
 
     public CityWeatherFragment() {
     }
@@ -46,7 +49,6 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
             cityWeatherSource = getArguments().getParcelable(DATA_SOURCE);
             landscapeOrientation = getArguments().getBoolean(LANDSCAPE_ORIENTATION);
         }
-        mainActivity = (MainActivity) getActivity();
 
         if (LOGGING) {
             Log.d(CLASS, "OnCreate. Data source - " + cityWeatherSource);
@@ -80,7 +82,7 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
 
         adapter.setOnItemClickListener((view1, position) -> {
             String activeCity = ((TextView) view1.findViewById(R.id.city)).getText().toString();
-            mainActivity.updateActiveCity(activeCity);
+            mainActivityListener.onUpdateActiveCity(activeCity);
             Log.i(CLASS, "Active city - " + activeCity);
             Toast.makeText(getContext(), String.format("City %s, position %d", activeCity, position), Toast.LENGTH_SHORT).show();
         });
@@ -89,5 +91,19 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+    }
+
+    public interface OnUpdateActiveCityListener {
+        void onUpdateActiveCity(String activeCity);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnUpdateActiveCityListener) {
+            mainActivityListener = (OnUpdateActiveCityListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnUpdateActiveCityListener");
+        }
     }
 }

@@ -13,7 +13,7 @@ import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
 import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
-public class MainActivity extends AppCompatActivity implements Updatable, ExtraConstants {
+public class MainActivity extends AppCompatActivity implements SettingsFragment.OnUpdateSettingsAndCitiesListener, CityWeatherFragment.OnUpdateActiveCityListener, ExtraConstants {
 
     private static final String CLASS = MainActivity.class.getSimpleName();
     private static final boolean LOGGING = false;
@@ -108,13 +108,13 @@ public class MainActivity extends AppCompatActivity implements Updatable, ExtraC
     }
 
     @Override
-    public void updateSettingsAndCities(Settings settings, Cities cities) {
+    public void onUpdateSettingsAndCities(Settings settings, Cities cities) {
         this.settings = settings;
         this.cities = cities;
     }
 
     @Override
-    public void updateActiveCity(String activeCity) {
+    public void onUpdateActiveCity(String activeCity) {
         this.activeCity = activeCity;
     }
 

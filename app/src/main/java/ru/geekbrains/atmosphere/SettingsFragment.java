@@ -1,5 +1,6 @@
 package ru.geekbrains.atmosphere;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
     private static final String CLASS = SettingsFragment.class.getSimpleName();
     private static final boolean LOGGING = false;
+
+    private OnUpdateSettingsAndCitiesListener mainActivityListener;
 
     private RadioGroup settingTheme;
     private Switch settingWeatherDetail;
@@ -72,7 +76,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             settings.setTheme(settingTheme.indexOfChild(settingTheme.findViewById(settingTheme.getCheckedRadioButtonId())));
             settings.setAllDetail(settingWeatherDetail.isChecked());
 
-            mainActivity.updateSettingsAndCities(settings, cities);
+            mainActivityListener.onUpdateSettingsAndCities(settings, cities);
             mainActivity.changeFragment(ButtonsFragment.create(settings, cities), true);
         });
 
@@ -93,5 +97,19 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
+    }
+
+    public interface OnUpdateSettingsAndCitiesListener {
+        void onUpdateSettingsAndCities(Settings settings, Cities cities);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnUpdateSettingsAndCitiesListener) {
+            mainActivityListener = (OnUpdateSettingsAndCitiesListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnUpdateSettingsAndCitiesListener");
+        }
     }
 }
