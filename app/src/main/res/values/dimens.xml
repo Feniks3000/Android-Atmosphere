@@ -19,5 +19,6 @@
     <dimen name="cardCornerRadius">15dp</dimen>
     <dimen name="cardElevation">3dp</dimen>
     <dimen name="sizeCardSeparator">10dp</dimen>
+    <dimen name="radiusButtons">10dp</dimen>
 
 </resources>

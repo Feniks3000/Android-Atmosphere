@@ -54,6 +54,8 @@
     <string name="chooseCityHeader">Выберите город</string>
     <string name="enterCityName">Введи название города</string>
     <string name="chooseCityOk">Добавить город</string>
+    <string name="chooseCityCancel">Отмена</string>
+    <string name="errorCityName">Неправильное имя: минимум 2 символа, первый - прописной</string>
 
     <!-- about city -->
     <string name="weatherIn">погода в %s</string>
