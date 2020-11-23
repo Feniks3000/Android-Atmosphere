@@ -50,6 +50,7 @@
     <string name="citiesHeader">Ваши города</string>
     <string name="saveSettings">Сохранить</string>
     <string name="addCity">Добавить город</string>
+    <string name="chooseTheme">Выбрана тема \"%s\"</string>
 
     <!-- city choose -->
     <string name="chooseCityHeader">Выберите город</string>

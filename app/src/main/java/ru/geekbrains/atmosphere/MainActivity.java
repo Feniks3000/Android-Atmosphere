@@ -1,5 +1,6 @@
 package ru.geekbrains.atmosphere;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import java.util.Calendar;
 
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(getCurrentTheme());
         setContentView(R.layout.activity_main);
 
         // Инициализируем основные параметры приложения
@@ -55,6 +59,33 @@ public class MainActivity extends AppCompatActivity
 
         createCityWeatherFragment();    // Создаем основной фрагмент с погодой
         createButtonsFragment();        // Создаем фрагмент с кнопками
+    }
+
+    private int getCurrentTheme() {
+        Integer theme = 0;
+        SharedPreferences sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
+        if (sharedPreferences != null) {
+            theme = sharedPreferences.getInt(THEME, 0);
+        }
+        switch (theme) {
+            case 0:
+                Log.d(CLASS, "theme Day");
+                return R.style.DayTheme;
+            case 1:
+                Log.d(CLASS, "theme Night");
+                return R.style.NightTheme;
+            case 2:
+                Log.d(CLASS, "theme Auto");
+                Calendar calendar = Calendar.getInstance();
+                int nowHour = calendar.get(Calendar.HOUR_OF_DAY);
+                if (nowHour >= 9 && nowHour <= 21) {
+                    return R.style.DayTheme;
+                } else {
+                    return R.style.NightTheme;
+                }
+            default:
+                return R.style.DayTheme;
+        }
     }
 
     private void restoreApp(Bundle savedInstanceState) {
@@ -118,6 +149,16 @@ public class MainActivity extends AppCompatActivity
     public void onUpdateSettingsAndCities(Settings settings, Cities cities) {
         this.settings = settings;
         this.cities = cities;
+        setMyTheme(settings);
+        recreate();
+    }
+
+    public void setMyTheme(Settings settings) {
+        SharedPreferences sharedPref = getSharedPreferences(SETTINGS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(THEME, settings.getTheme());
+        editor.putBoolean(ALL_DETAIL, settings.isAllDetail());
+        editor.apply();
     }
 
     @Override

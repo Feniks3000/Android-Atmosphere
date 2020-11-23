@@ -49,6 +49,7 @@
     <string name="citiesHeader">Your cities</string>
     <string name="saveSettings">Save</string>
     <string name="addCity">Add city</string>
+    <string name="chooseTheme">Choosed theme \"%s\"</string>
 
     <!-- city choose -->
     <string name="chooseCityHeader">Choose city</string>

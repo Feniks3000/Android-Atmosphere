@@ -6,4 +6,6 @@ public interface ExtraConstants {
     String ACTIVE_CITY = "ACTIVE_CITY";
     String LANDSCAPE_ORIENTATION = "LANDSCAPE_ORIENTATION";
     String DATA_SOURCE = "DATA_SOURCE";
+    String THEME = "THEME";
+    String ALL_DETAIL = "ALL_DETAIL";
 }
