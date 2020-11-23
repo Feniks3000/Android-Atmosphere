@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -79,11 +78,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             onChangeFragmentListener.onChangeFragment(ButtonsFragment.create(settings, cities), true);
         });
 
-        TextView addCity = view.findViewById(R.id.settingsCitiesHeader);
+        Button addCity = view.findViewById(R.id.addCity);
         addCity.setOnClickListener(button -> {
             settings.setTheme(settingTheme.indexOfChild(settingTheme.findViewById(settingTheme.getCheckedRadioButtonId())));
             settings.setAllDetail(settingWeatherDetail.isChecked());
             onChangeFragmentListener.onChangeFragment(CityChooseFragment.create(settings, cities), false);
+        });
+
+        Button cancelButton = view.findViewById(R.id.cancel_action);
+        cancelButton.setOnClickListener(button -> {
+            onChangeFragmentListener.onChangeFragment(ButtonsFragment.create(settings, cities), true);
         });
 
         // TODO: Need remove cities from the list

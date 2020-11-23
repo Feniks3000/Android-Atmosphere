@@ -49,12 +49,13 @@
     <string name="weatherDetailAll">Максимум информации</string>
     <string name="citiesHeader">Ваши города</string>
     <string name="saveSettings">Сохранить</string>
+    <string name="addCity">Добавить город</string>
 
     <!-- city choose -->
     <string name="chooseCityHeader">Выберите город</string>
     <string name="enterCityName">Введи название города</string>
     <string name="chooseCityOk">Добавить город</string>
-    <string name="chooseCityCancel">Отмена</string>
+    <string name="cancel">Отмена</string>
     <string name="errorCityName">Неправильное имя: минимум 2 символа, первый - прописной</string>
 
     <!-- about city -->
