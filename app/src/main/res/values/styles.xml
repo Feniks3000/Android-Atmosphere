@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="WeatherCardMainStyle">
+        <item name="android:textSize">@dimen/textTempNow</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WeatherCardHoursHeadersStyle">
+        <item name="android:textSize">@dimen/textNext4HoursDescription</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">@dimen/paddingLeftNext4Hours</item>
+        <item name="android:paddingEnd">@dimen/paddingRightNext4Hours</item>
+    </style>
+
+    <style name="WeatherCardHoursStyle" parent="WeatherCardHoursHeadersStyle">
+        <item name="android:textSize">@dimen/textNext4Hours</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WeatherCardDaysMainStyle">
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="WeatherCardDaysFirstColumnStyle" parent="WeatherCardDaysMainStyle">
+        <item name="android:textSize">@dimen/textNext5DaysColumnHeader</item>
+        <item name="android:width">@dimen/widthColumnDate</item>
+    </style>
+
+    <style name="WeatherCardDaysNextColumnsStyle" parent="WeatherCardDaysMainStyle">
+        <item name="android:textSize">@dimen/textNext5DaysColumnHeader</item>
+        <item name="android:width">@dimen/widthColumnsNext5Days</item>
+    </style>
+
+    <style name="WeatherCardDaysValuesFirstColumnStyle" parent="WeatherCardDaysFirstColumnStyle">
+        <item name="android:textSize">@dimen/textNext5Days</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="WeatherCardDaysValuesNextColumnsStyle" parent="WeatherCardDaysNextColumnsStyle">
+        <item name="android:textSize">@dimen/textNext5Days</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
