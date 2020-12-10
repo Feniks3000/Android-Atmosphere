@@ -8,10 +8,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Cities implements Parcelable {
-    private List cities;
+    private List<String> cities;
 
     public List<String> getCities() {
         return cities;
+    }
+
+    public String[] getCitiesArray() {
+        return cities.toArray(new String[0]);
+    }
+
+    public String getFirstCity() {
+        return cities != null ? cities.get(0) : null;
     }
 
     public void setCities(List<String> cities) {
@@ -33,7 +41,7 @@ public class Cities implements Parcelable {
     }
 
     public Cities(String[] array) {
-        cities =  new ArrayList<>(Arrays.asList(array));
+        cities = new ArrayList<>(Arrays.asList(array));
     }
 
     protected Cities(Parcel in) {

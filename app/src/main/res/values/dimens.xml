@@ -2,8 +2,8 @@
 <resources>
     <dimen name="textTempNow">24sp</dimen>
     <dimen name="widthTempNow">50dp</dimen>
-    <dimen name="widthImageTempNow">30dp</dimen>
-    <dimen name="heightImageTempNow">30dp</dimen>
+    <dimen name="widthImageTempNow">50dp</dimen>
+    <dimen name="heightImageTempNow">50dp</dimen>
     <dimen name="textNext4HoursDescription">18sp</dimen>
     <dimen name="textNext4Hours">24sp</dimen>
     <dimen name="paddingLeftNext4Hours">0dp</dimen>
@@ -16,5 +16,9 @@
     <dimen name="widthColumnsNext5Days">90dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="empty">0px</dimen>
+    <dimen name="cardCornerRadius">15dp</dimen>
+    <dimen name="cardElevation">3dp</dimen>
+    <dimen name="sizeCardSeparator">10dp</dimen>
+    <dimen name="radiusButtons">10dp</dimen>
 
 </resources>

@@ -1,42 +1,43 @@
 package ru.geekbrains.atmosphere;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class CityWeatherFragment extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import ru.geekbrains.atmosphere.city_weather.CityWeatherAdapter;
+import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class CityWeatherFragment extends Fragment implements View.OnClickListener, ExtraConstants {
+
+    private static final String CLASS = CityWeatherFragment.class.getSimpleName();
+    private static final boolean LOGGING = false;
+
+    private OnUpdateActiveCityListener mainActivityListener;
+
+    private CityWeatherSource cityWeatherSource;
+    private boolean landscapeOrientation;
 
     public CityWeatherFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CityWeatherFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CityWeatherFragment newInstance(String param1, String param2) {
+    public static CityWeatherFragment create(CityWeatherSource cityWeatherSource, boolean landscapeOrientation) {
         CityWeatherFragment fragment = new CityWeatherFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(DATA_SOURCE, cityWeatherSource);
+        args.putBoolean(LANDSCAPE_ORIENTATION, landscapeOrientation);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,15 +46,64 @@ public class CityWeatherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            cityWeatherSource = getArguments().getParcelable(DATA_SOURCE);
+            landscapeOrientation = getArguments().getBoolean(LANDSCAPE_ORIENTATION);
+        }
+
+        if (LOGGING) {
+            Log.d(CLASS, "OnCreate. Data source - " + cityWeatherSource);
+            Log.d(CLASS, "OnCreate. Landscape orientation - " + landscapeOrientation);
         }
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_city_weather, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_city_weather, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.cityWeatherCards);
+        recyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(landscapeOrientation ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), landscapeOrientation ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
+        itemDecoration.setDrawable(landscapeOrientation ? getContext().getDrawable(R.drawable.separator_horizontal) : getContext().getDrawable(R.drawable.separator_vertical));
+        recyclerView.addItemDecoration(itemDecoration);
+
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(500);
+        animator.setRemoveDuration(500);
+        recyclerView.setItemAnimator(animator);
+
+        CityWeatherAdapter adapter = new CityWeatherAdapter(cityWeatherSource);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener((view1, position) -> {
+            String activeCity = ((TextView) view1.findViewById(R.id.city)).getText().toString();
+            mainActivityListener.onUpdateActiveCity(activeCity);
+            Log.i(CLASS, "Active city - " + activeCity);
+            Toast.makeText(getContext(), String.format("City %s, position %d", activeCity, position), Toast.LENGTH_SHORT).show();
+        });
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+    }
+
+    public interface OnUpdateActiveCityListener {
+        void onUpdateActiveCity(String activeCity);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnUpdateActiveCityListener) {
+            mainActivityListener = (OnUpdateActiveCityListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnUpdateActiveCityListener");
+        }
     }
 }
