@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Calendar;
 
 import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.CitiesAdapter;
@@ -29,7 +32,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private OnChangeFragmentListener onChangeFragmentListener;
 
     private RadioGroup settingTheme;
-    private Switch settingWeatherDetail;
+    private SwitchCompat settingWeatherDetail;
 
     private Settings settings;
     private Cities cities;
@@ -69,6 +72,30 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
 
         ((RadioButton) settingTheme.getChildAt(settings.getTheme())).setChecked(true);
         settingWeatherDetail.setChecked(settings.isAllDetail());
+        settingTheme.setOnCheckedChangeListener((button, isChecked) -> {
+            String theme;
+            switch (settingTheme.indexOfChild(settingTheme.findViewById(settingTheme.getCheckedRadioButtonId()))) {
+                case 0:
+                    theme = getResources().getString(R.string.themeDay);
+                    break;
+                case 1:
+                    theme = getResources().getString(R.string.themeNight);
+                    break;
+                case 2:
+                    Calendar calendar = Calendar.getInstance();
+                    int nowHour = calendar.get(Calendar.HOUR_OF_DAY);
+                    if (nowHour >= 9 && nowHour <= 21) {
+                        theme = getResources().getString(R.string.themeDay);
+                    } else {
+                        theme = getResources().getString(R.string.themeNight);
+                    }
+                    break;
+                default:
+                    theme = getResources().getString(R.string.themeDay);
+            }
+            Snackbar.make(view, String.format(getResources().getString(R.string.chooseTheme), theme), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        });
+
 
         Button saveSettings = view.findViewById(R.id.saveSettings);
         saveSettings.setOnClickListener(button -> {
@@ -79,11 +106,16 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             onChangeFragmentListener.onChangeFragment(ButtonsFragment.create(settings, cities), true);
         });
 
-        TextView addCity = view.findViewById(R.id.settingsCitiesHeader);
+        Button addCity = view.findViewById(R.id.addCity);
         addCity.setOnClickListener(button -> {
             settings.setTheme(settingTheme.indexOfChild(settingTheme.findViewById(settingTheme.getCheckedRadioButtonId())));
             settings.setAllDetail(settingWeatherDetail.isChecked());
             onChangeFragmentListener.onChangeFragment(CityChooseFragment.create(settings, cities), false);
+        });
+
+        Button cancelButton = view.findViewById(R.id.cancel_action);
+        cancelButton.setOnClickListener(button -> {
+            onChangeFragmentListener.onChangeFragment(ButtonsFragment.create(settings, cities), true);
         });
 
         // TODO: Need remove cities from the list

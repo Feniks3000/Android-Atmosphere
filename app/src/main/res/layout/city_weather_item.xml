@@ -4,9 +4,9 @@
     android:id="@+id/cityWeatherCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/cardview_shadow_start_color"
     app:cardCornerRadius="@dimen/cardCornerRadius"
-    app:cardElevation="@dimen/cardElevation"
-    app:cardBackgroundColor="@color/cardview_shadow_start_color">
+    app:cardElevation="@dimen/cardElevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,23 +14,19 @@
 
         <TextView
             android:id="@+id/city"
+            style="@style/WeatherCardMainStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/textTempNow"
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/labelTempNow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/labelTempNow"
+            style="@style/WeatherCardMainStyle"
             android:layout_width="@dimen/widthTempNow"
             android:layout_height="wrap_content"
             android:text="@string/tempNow"
-            android:textAlignment="center"
-            android:textSize="@dimen/textTempNow"
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/imagePrecipitationNow"
             app:layout_constraintStart_toEndOf="@id/city"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,108 +42,80 @@
 
         <TextView
             android:id="@+id/labelNextHour1Description"
+            style="@style/WeatherCardHoursHeadersStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour1Description"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4HoursDescription"
             app:layout_constraintEnd_toStartOf="@id/labelNextHour2Description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imagePrecipitationNow" />
 
         <TextView
             android:id="@+id/labelNextHour2Description"
+            style="@style/WeatherCardHoursHeadersStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour2Description"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4HoursDescription"
             app:layout_constraintEnd_toStartOf="@+id/labelNextHour3Description"
             app:layout_constraintStart_toEndOf="@+id/labelNextHour1Description"
             app:layout_constraintTop_toTopOf="@id/labelNextHour1Description" />
 
         <TextView
             android:id="@+id/labelNextHour3Description"
+            style="@style/WeatherCardHoursHeadersStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour3Description"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4HoursDescription"
             app:layout_constraintEnd_toStartOf="@+id/labelNextHour4Description"
             app:layout_constraintStart_toEndOf="@+id/labelNextHour2Description"
             app:layout_constraintTop_toTopOf="@id/labelNextHour2Description" />
 
         <TextView
             android:id="@+id/labelNextHour4Description"
+            style="@style/WeatherCardHoursHeadersStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour4Description"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4HoursDescription"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/labelNextHour3Description"
             app:layout_constraintTop_toTopOf="@id/labelNextHour3Description" />
 
         <TextView
             android:id="@+id/labelNextHour1"
+            style="@style/WeatherCardHoursStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour1"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4Hours"
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/labelNextHour2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/labelNextHour1Description" />
 
         <TextView
             android:id="@+id/labelNextHour2"
+            style="@style/WeatherCardHoursStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour2"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4Hours"
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/labelNextHour3"
             app:layout_constraintStart_toEndOf="@+id/labelNextHour1"
             app:layout_constraintTop_toTopOf="@id/labelNextHour1" />
 
         <TextView
             android:id="@+id/labelNextHour3"
+            style="@style/WeatherCardHoursStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour3"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4Hours"
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/labelNextHour4"
             app:layout_constraintStart_toEndOf="@+id/labelNextHour2"
             app:layout_constraintTop_toTopOf="@id/labelNextHour2" />
 
         <TextView
             android:id="@+id/labelNextHour4"
+            style="@style/WeatherCardHoursStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/paddingLeftNext4Hours"
-            android:paddingEnd="@dimen/paddingRightNext4Hours"
             android:text="@string/tempNextHour4"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext4Hours"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/labelNextHour3"
             app:layout_constraintTop_toTopOf="@id/labelNextHour3" />
@@ -168,289 +136,221 @@
 
         <TextView
             android:id="@+id/labelDate"
+            style="@style/WeatherCardDaysFirstColumnStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnDate"
-            android:text="@string/labelMorning"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5DaysColumnHeader"
+            android:text="@string/labelDate"
             app:layout_constraintEnd_toStartOf="@id/labelMorning"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/labelNext5DaysHeader" />
 
         <TextView
             android:id="@+id/labelMorning"
+            style="@style/WeatherCardDaysNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMorning"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5DaysColumnHeader"
             app:layout_constraintEnd_toStartOf="@+id/labelMidday"
             app:layout_constraintStart_toEndOf="@+id/labelDate"
             app:layout_constraintTop_toTopOf="@id/labelDate" />
 
         <TextView
             android:id="@+id/labelMidday"
+            style="@style/WeatherCardDaysNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMidday"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5DaysColumnHeader"
             app:layout_constraintEnd_toStartOf="@+id/labelEvening"
             app:layout_constraintStart_toEndOf="@+id/labelMorning"
             app:layout_constraintTop_toTopOf="@id/labelMorning" />
 
         <TextView
             android:id="@+id/labelEvening"
+            style="@style/WeatherCardDaysNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelEvening"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5DaysColumnHeader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/labelMidday"
             app:layout_constraintTop_toTopOf="@id/labelMidday" />
 
         <TextView
             android:id="@+id/labelDateNextDay1"
+            style="@style/WeatherCardDaysValuesFirstColumnStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnDate"
             android:text="@string/labelDateNextDay1"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelDate"
             app:layout_constraintTop_toBottomOf="@id/labelDate" />
 
         <TextView
             android:id="@+id/labelMorningNextDay1"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMorningNextDay1"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMorning"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay1" />
 
         <TextView
             android:id="@+id/labelMiddayNextDay1"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMiddayNextDay1"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMidday"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay1" />
 
         <TextView
             android:id="@+id/labelEveningNextDay1"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelEveningNextDay1"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelEvening"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay1" />
 
         <TextView
             android:id="@+id/labelDateNextDay2"
+            style="@style/WeatherCardDaysValuesFirstColumnStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnDate"
             android:text="@string/labelDateNextDay2"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelDate"
             app:layout_constraintTop_toBottomOf="@id/labelDateNextDay1" />
 
         <TextView
             android:id="@+id/labelMorningNextDay2"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMorningNextDay2"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMorning"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay2" />
 
         <TextView
             android:id="@+id/labelMiddayNextDay2"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMiddayNextDay2"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMidday"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay2" />
 
         <TextView
             android:id="@+id/labelEveningNextDay2"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelEveningNextDay2"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelEvening"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay2" />
 
         <TextView
             android:id="@+id/labelDateNextDay3"
+            style="@style/WeatherCardDaysValuesFirstColumnStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnDate"
             android:text="@string/labelDateNextDay3"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelDate"
             app:layout_constraintTop_toBottomOf="@id/labelDateNextDay2" />
 
         <TextView
             android:id="@+id/labelMorningNextDay3"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMorningNextDay3"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMorning"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay3" />
 
         <TextView
             android:id="@+id/labelMiddayNextDay3"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMiddayNextDay3"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMidday"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay3" />
 
         <TextView
             android:id="@+id/labelEveningNextDay3"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelEveningNextDay3"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelEvening"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay3" />
 
         <TextView
             android:id="@+id/labelDateNextDay4"
+            style="@style/WeatherCardDaysValuesFirstColumnStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnDate"
             android:text="@string/labelDateNextDay4"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelDate"
             app:layout_constraintTop_toBottomOf="@id/labelDateNextDay3" />
 
         <TextView
             android:id="@+id/labelMorningNextDay4"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMorningNextDay4"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMorning"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay4" />
 
         <TextView
             android:id="@+id/labelMiddayNextDay4"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMiddayNextDay4"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMidday"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay4" />
 
         <TextView
             android:id="@+id/labelEveningNextDay4"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelEveningNextDay4"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelEvening"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay4" />
 
         <TextView
             android:id="@+id/labelDateNextDay5"
+            style="@style/WeatherCardDaysValuesFirstColumnStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnDate"
             android:text="@string/labelDateNextDay5"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelDate"
             app:layout_constraintTop_toBottomOf="@id/labelDateNextDay4" />
 
         <TextView
             android:id="@+id/labelMorningNextDay5"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMorningNextDay5"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMorning"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay5" />
 
         <TextView
             android:id="@+id/labelMiddayNextDay5"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelMiddayNextDay5"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelMidday"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay5" />
 
         <TextView
             android:id="@+id/labelEveningNextDay5"
+            style="@style/WeatherCardDaysValuesNextColumnsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="@dimen/widthColumnsNext5Days"
             android:text="@string/labelEveningNextDay5"
-            android:textAlignment="center"
-            android:textSize="@dimen/textNext5Days"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/labelEvening"
             app:layout_constraintTop_toTopOf="@id/labelDateNextDay5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
