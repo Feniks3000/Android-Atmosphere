@@ -62,6 +62,13 @@
     <!-- about city -->
     <string name="weatherIn">погода в %s</string>
 
+    <!-- navigation -->
+    <string name="nav_weather">Погода</string>
+    <string name="nav_settings">Настройки</string>
+    <string name="nav_city_choose">Выбор города</string>
+    <string name="navigation_drawer_open">Открыта панель навигации</string>
+    <string name="navigation_drawer_close">Закрыта панель навигации</string>
+
     <string-array name="cities">
         <item>Кемерово</item>
         <item>Москва</item>
