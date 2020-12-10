@@ -68,6 +68,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- toolbar / popup menu -->
+    <string name="toolbar_add">Add city</string>
+    <string name="toolbar_clear">Clear cities</string>
+    <string name="toolbar_search">Search</string>
+    <string name="popup_update">Update weather</string>
+    <string name="popup_delete">Delete city</string>
+
     <string-array name="cities">
         <item>Kemerovo</item>
         <item>Moscow</item>

@@ -1,5 +1,7 @@
 package ru.geekbrains.atmosphere.city_weather;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,11 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     private CityWeatherSource dataSource;
     private OnItemClickListener itemClickListener;
+    private Context context;
 
-    public CityWeatherAdapter(CityWeatherSource dataSource) {
+    public CityWeatherAdapter(CityWeatherSource dataSource, Context context) {
         this.dataSource = dataSource;
+        this.context = context;
     }
 
     @Override
@@ -27,6 +31,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         ViewHolder viewHolder = new ViewHolder(view);
         if (itemClickListener != null) {
             viewHolder.setOnClickListener(itemClickListener);
+            viewHolder.setOnLongClickListener(itemClickListener);
         }
         return viewHolder;
     }
@@ -72,6 +77,14 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
                     return;    // Проверяем ее на корректность
                 listener.onItemClick(view, adapterPosition);
             });
+        }
+
+        public void setOnLongClickListener(final OnItemClickListener listener) {
+            card.setOnLongClickListener(view -> {
+                int adapterPosition = getAdapterPosition();                 // Получаем позицию адаптера
+                return false;
+            });
+            ((Activity) context).registerForContextMenu(card);
         }
 
         public void setData(CityWeather cityWeather) {

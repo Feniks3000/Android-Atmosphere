@@ -69,6 +69,13 @@
     <string name="navigation_drawer_open">Открыта панель навигации</string>
     <string name="navigation_drawer_close">Закрыта панель навигации</string>
 
+    <!-- toolbar / popup menu -->
+    <string name="toolbar_add">Добавить город</string>
+    <string name="toolbar_clear">Очистить города</string>
+    <string name="toolbar_search">Поиск</string>
+    <string name="popup_update">Обновить прогноз</string>
+    <string name="popup_delete">Удалить город</string>
+
     <string-array name="cities">
         <item>Кемерово</item>
         <item>Москва</item>

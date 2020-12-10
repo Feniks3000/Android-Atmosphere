@@ -4,19 +4,19 @@
     <item
         android:id="@+id/action_add"
         android:orderInCategory="10"
-        android:title="Add"
+        android:title="@string/toolbar_add"
         android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_clear"
         android:orderInCategory="20"
-        android:title="Clear"
+        android:title="@string/toolbar_clear"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_search"
         android:orderInCategory="5"
-        android:title="Search"
+        android:title="@string/toolbar_search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
