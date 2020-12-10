@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- city_weather -->
+    <string name="app_name">Atmosphere</string>
+    <string name="tempNow">-3</string>
+    <string name="tempNextHour1">-3</string>
+    <string name="tempNextHour2">-5</string>
+    <string name="tempNextHour3">-6</string>
+    <string name="tempNextHour4">-8</string>
+    <string name="tempNextHour1Description">9:00</string>
+    <string name="tempNextHour2Description">10:00</string>
+    <string name="tempNextHour3Description">11:00</string>
+    <string name="tempNextHour4Description">12:00</string>
+    <string name="imageTempNowDescription">солнечно</string>
+    <string name="tempNext5DaysHeader">Погода на следующие 5 дней</string>
+    <string name="labelDateNextDay1">29.10</string>
+    <string name="labelDateNextDay2">30.10</string>
+    <string name="labelDateNextDay3">31.10</string>
+    <string name="labelDateNextDay4">01.11</string>
+    <string name="labelDateNextDay5">02.11</string>
+    <string name="labelMorningNextDay1">-3</string>
+    <string name="labelMorningNextDay2">-3</string>
+    <string name="labelMorningNextDay3">-5</string>
+    <string name="labelMorningNextDay4">-3</string>
+    <string name="labelMorningNextDay5">-7</string>
+    <string name="labelMiddayNextDay1">0</string>
+    <string name="labelMiddayNextDay2">+1</string>
+    <string name="labelMiddayNextDay3">-1</string>
+    <string name="labelMiddayNextDay4">0</string>
+    <string name="labelMiddayNextDay5">-3</string>
+    <string name="labelEveningNextDay1">-4</string>
+    <string name="labelEveningNextDay2">-7</string>
+    <string name="labelEveningNextDay3">-10</string>
+    <string name="labelEveningNextDay4">-6</string>
+    <string name="labelEveningNextDay5">-10</string>
+    <string name="labelDate">Дата</string>
+    <string name="labelMorning">Утро</string>
+    <string name="labelMidday">День</string>
+    <string name="labelEvening">Вечер</string>
+    <string name="settings">Настройки</string>
+    <string name="webInfo">Найти в сети</string>
+
+    <!-- settings -->
+    <string name="themeHeader">Выберите тему</string>
+    <string name="themeDay">Светлая</string>
+    <string name="themeNight">Тёмная</string>
+    <string name="themeAuto">Авто: Светлая/Тёмная</string>
+    <string name="weatherDetailHeader">Выберите детализацию</string>
+    <string name="weatherDetailAll">Максимум информации</string>
+    <string name="citiesHeader">Ваши города</string>
+    <string name="saveSettings">Сохранить</string>
+    <string name="addCity">Добавить город</string>
+    <string name="chooseTheme">Выбрана тема \"%s\"</string>
+
+    <!-- city choose -->
+    <string name="chooseCityHeader">Выберите город</string>
+    <string name="enterCityName">Введи название города</string>
+    <string name="chooseCityOk">Добавить город</string>
+    <string name="cancel">Отмена</string>
+    <string name="errorCityName">Неправильное имя: минимум 2 символа, первый - прописной</string>
+
+    <!-- about city -->
+    <string name="weatherIn">погода в %s</string>
+
+    <string-array name="cities">
+        <item>Кемерово</item>
+        <item>Москва</item>
+        <item>Новосибирск</item>
+        <item>Санкт-Петербург</item>
+    </string-array>
+</resources>

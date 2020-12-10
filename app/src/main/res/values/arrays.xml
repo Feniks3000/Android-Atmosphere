@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="imagesWeather">
+        <item>@drawable/rain</item>
+        <item>@drawable/snow</item>
+        <item>@drawable/sunny</item>
+    </integer-array>
+</resources>

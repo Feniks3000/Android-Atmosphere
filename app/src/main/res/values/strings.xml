@@ -12,7 +12,6 @@
     <string name="tempNextHour4Description">12:00</string>
     <string name="imageTempNowDescription">sunny</string>
     <string name="tempNext5DaysHeader">Weather for the next 5 days</string>
-    <string name="tempNextDaysDescription">9:00</string>
     <string name="labelDateNextDay1">29.10</string>
     <string name="labelDateNextDay2">30.10</string>
     <string name="labelDateNextDay3">31.10</string>
@@ -37,7 +36,8 @@
     <string name="labelMorning">Morning</string>
     <string name="labelMidday">Midday</string>
     <string name="labelEvening">Evening</string>
-    <string name="settings"/>
+    <string name="settings">Settings</string>
+    <string name="webInfo">Find on net</string>
 
     <!-- settings -->
     <string name="themeHeader">Choose theme</string>
@@ -46,10 +46,26 @@
     <string name="themeAuto">Auto</string>
     <string name="weatherDetailHeader">Choose weather detail</string>
     <string name="weatherDetailAll">Maximum info</string>
+    <string name="citiesHeader">Your cities</string>
     <string name="saveSettings">Save</string>
+    <string name="addCity">Add city</string>
+    <string name="chooseTheme">Choosed theme \"%s\"</string>
 
     <!-- city choose -->
     <string name="chooseCityHeader">Choose city</string>
-    <string name="chooseCityOk">Save city</string>
+    <string name="enterCityName">Enter city name</string>
+    <string name="chooseCityOk">Add city</string>
+    <string name="cancel">Cancel</string>
+    <string name="errorCityName">Wrong city name: min length 2 chars, first char must be uppercase</string>
+
+    <!-- about city -->
+    <string name="weatherIn">weather in %s</string>
+
+    <string-array name="cities">
+        <item>Kemerovo</item>
+        <item>Moscow</item>
+        <item>Novosibirsk</item>
+        <item>St. Petersburg</item>
+    </string-array>
 
 </resources>

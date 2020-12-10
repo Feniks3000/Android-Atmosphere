@@ -1,10 +1,10 @@
-package ru.geekbrains.atmosphere;
+package ru.geekbrains.atmosphere.singletone;
 
 import android.app.Application;
 
 public class MyApp extends Application {
     private static MyApp instance;
-    private Storage storage = new Storage();
+    private final Storage storage = new Storage();
 
     @Override
     public void onCreate() {
@@ -19,6 +19,4 @@ public class MyApp extends Application {
     public static MyApp getInstance() {
         return instance;
     }
-
-
 }
