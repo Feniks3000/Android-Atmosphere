@@ -71,6 +71,19 @@ public class CityWeatherSource implements Parcelable {
         return this;
     }
 
+    public void addCity(String city){
+        CityWeather cityWeather = new CityWeather(city, 0, null, null, null);
+        dataSource.add(cityWeather);
+    }
+
+    void removeCity(int position){
+        dataSource.remove(position);
+    }
+
+    void clearCities(){
+        dataSource.clear();
+    }
+
     public CityWeather getCityWeather(int position) {
         return dataSource.get(position);
     }

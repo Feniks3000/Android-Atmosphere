@@ -73,8 +73,9 @@
     <string name="toolbar_add">Добавить город</string>
     <string name="toolbar_clear">Очистить города</string>
     <string name="toolbar_search">Поиск</string>
-    <string name="popup_update">Обновить прогноз</string>
-    <string name="popup_delete">Удалить город</string>
+    <string name="toolbar_settings">Настройки</string>
+    <string name="context_update">Обновить прогноз</string>
+    <string name="context_delete">Удалить город</string>
 
     <string-array name="cities">
         <item>Кемерово</item>

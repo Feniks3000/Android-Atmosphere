@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,6 +20,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         //setTheme(getCurrentTheme());
         setContentView(R.layout.activity_main);
-        initToolbarAndNavigationPanel();
+        initNavigationAndMenuElements();
 
         // Инициализируем основные параметры приложения
         if (savedInstanceState == null) {
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void initToolbarAndNavigationPanel() {
+    private void initNavigationAndMenuElements() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -87,6 +89,12 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> {
+            // TODO: Добавить открытие формы добавления города
+            Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+        });
     }
 
     private int getCurrentTheme() {
@@ -213,7 +221,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Log.i(CLASS, "Navigation " + id);
+        switch (id) {
+            case R.id.nav_weather:
+                Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_settings:
+                Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_city_choose:
+                Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
+                break;
+        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -223,7 +242,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
 
-        MenuItem search = menu.findItem(R.id.action_search);
+        MenuItem search = menu.findItem(R.id.toolbar_search);
         final SearchView searchText = (SearchView) search.getActionView();
 
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -237,9 +256,25 @@ public class MainActivity extends AppCompatActivity
             public boolean onQueryTextChange(String newText) {
                 return true;
             }
-        } );
-
+        });
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.toolbar_add:
+                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.toolbar_clear:
+                Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.toolbar_settings:
+                Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

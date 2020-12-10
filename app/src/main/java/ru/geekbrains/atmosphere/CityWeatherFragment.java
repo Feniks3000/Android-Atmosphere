@@ -1,14 +1,16 @@
 package ru.geekbrains.atmosphere;
 
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import ru.geekbrains.atmosphere.city_weather.CityWeatherAdapter;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
@@ -27,6 +31,7 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
 
     private OnUpdateActiveCityListener mainActivityListener;
 
+    private CityWeatherAdapter adapter;
     private CityWeatherSource cityWeatherSource;
     private boolean landscapeOrientation;
 
@@ -77,15 +82,16 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
         animator.setRemoveDuration(500);
         recyclerView.setItemAnimator(animator);
 
-        CityWeatherAdapter adapter = new CityWeatherAdapter(cityWeatherSource, getContext());
+        adapter = new CityWeatherAdapter(cityWeatherSource, getContext());
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener((view1, position) -> {
             String activeCity = ((TextView) view1.findViewById(R.id.city)).getText().toString();
             mainActivityListener.onUpdateActiveCity(activeCity);
             Log.i(CLASS, "Active city - " + activeCity);
-            Toast.makeText(getContext(), String.format("City %s, position %d", activeCity, position), Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, String.format("City %s, position %d", activeCity, position), Snackbar.LENGTH_LONG).setAction("Action", null).show();
         });
+
         return view;
     }
 
@@ -102,8 +108,25 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
         super.onAttach(context);
         if (context instanceof OnUpdateActiveCityListener) {
             mainActivityListener = (OnUpdateActiveCityListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnUpdateActiveCityListener");
         }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.context_update:
+                //
+                return true;
+            case R.id.context_delete:
+                adapter.removeCity(adapter.getPosition());
+                return true;
+            case R.id.context_info:
+                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                intent.putExtra(SearchManager.QUERY, String.format(getResources().getString(R.string.weatherIn), adapter.getCityName()));
+                startActivity(intent);
+                return true;
+        }
+        return super.onContextItemSelected(item);
     }
 }

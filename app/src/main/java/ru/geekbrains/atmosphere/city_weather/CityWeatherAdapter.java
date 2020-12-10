@@ -2,6 +2,7 @@ package ru.geekbrains.atmosphere.city_weather;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,9 @@ import ru.geekbrains.atmosphere.R;
 public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.ViewHolder> {
 
     private CityWeatherSource dataSource;
+    private int position;
     private OnItemClickListener itemClickListener;
-    private Context context;
+    private final Context context;
 
     public CityWeatherAdapter(CityWeatherSource dataSource, Context context) {
         this.dataSource = dataSource;
@@ -81,7 +83,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         public void setOnLongClickListener(final OnItemClickListener listener) {
             card.setOnLongClickListener(view -> {
-                int adapterPosition = getAdapterPosition();                 // Получаем позицию адаптера
+                position = getAdapterPosition();                 // Получаем позицию адаптера
                 return false;
             });
             ((Activity) context).registerForContextMenu(card);
@@ -104,5 +106,29 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         public ImageView getPicture() {
             return picture;
         }
+    }
+
+    public void addCity(String city){
+        dataSource.addCity(city);
+        notifyItemInserted(dataSource.size() - 1);
+    }
+
+    public void removeCity(int position){
+        dataSource.removeCity(position);
+        Log.i("Adapter", "Remove city - " + position);
+        notifyItemRemoved(position);
+    }
+
+    public void clearCities(){
+        dataSource.clearCities();
+        notifyDataSetChanged();
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public String getCityName() {
+        return dataSource.getCityWeather(position).getCity();
     }
 }

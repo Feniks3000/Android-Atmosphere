@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="@string/popup_update"
-        android:id="@+id/add_popup"
+        android:title="@string/context_update"
+        android:id="@+id/context_update"
         android:orderInCategory="10"/>
     <item
-        android:title="@string/popup_delete"
-        android:id="@+id/update_popup"
+        android:title="@string/context_delete"
+        android:id="@+id/context_delete"
         android:orderInCategory="20"/>
+    <item
+        android:title="@string/webInfo"
+        android:id="@+id/context_info"
+        android:orderInCategory="30"/>
 </menu>

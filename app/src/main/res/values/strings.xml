@@ -72,8 +72,9 @@
     <string name="toolbar_add">Add city</string>
     <string name="toolbar_clear">Clear cities</string>
     <string name="toolbar_search">Search</string>
-    <string name="popup_update">Update weather</string>
-    <string name="popup_delete">Delete city</string>
+    <string name="toolbar_settings">Settings</string>
+    <string name="context_update">Update weather</string>
+    <string name="context_delete">Delete city</string>
 
     <string-array name="cities">
         <item>Kemerovo</item>
