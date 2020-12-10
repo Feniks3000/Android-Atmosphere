@@ -14,13 +14,21 @@ public class Cities implements Parcelable {
         return cities;
     }
 
+    public String[] getCitiesArray() {
+        return cities.toArray(new String[0]);
+    }
+
+    public String getFirstCity() {
+        return cities != null ? cities.get(0) : null;
+    }
+
     public void setCities(List<String> cities) {
         this.cities = cities;
     }
 
     public void addCity(String city) {
         if (cities == null) {
-            cities = new ArrayList<>();
+            cities = new ArrayList();
         }
         cities.add(city);
     }
@@ -33,7 +41,7 @@ public class Cities implements Parcelable {
     }
 
     public Cities(String[] array) {
-        cities = Arrays.asList(array);
+        cities = new ArrayList<>(Arrays.asList(array));
     }
 
     protected Cities(Parcel in) {

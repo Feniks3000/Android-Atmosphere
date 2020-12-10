@@ -48,11 +48,15 @@
     <string name="weatherDetailAll">Maximum info</string>
     <string name="citiesHeader">Your cities</string>
     <string name="saveSettings">Save</string>
+    <string name="addCity">Add city</string>
+    <string name="chooseTheme">Choosed theme \"%s\"</string>
 
     <!-- city choose -->
     <string name="chooseCityHeader">Choose city</string>
     <string name="enterCityName">Enter city name</string>
     <string name="chooseCityOk">Add city</string>
+    <string name="cancel">Cancel</string>
+    <string name="errorCityName">Wrong city name: min length 2 chars, first char must be uppercase</string>
 
     <!-- about city -->
     <string name="weatherIn">weather in %s</string>
@@ -63,5 +67,5 @@
         <item>Novosibirsk</item>
         <item>St. Petersburg</item>
     </string-array>
-    
+
 </resources>
