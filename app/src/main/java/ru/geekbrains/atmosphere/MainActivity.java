@@ -26,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
+import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
 import ru.geekbrains.atmosphere.settings.Cities;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             // TODO: Добавить открытие формы добавления города
+            onChangeFragment(CityChooseFragment.create(settings, cities), false);
             Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
         });
     }
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity
     private void createButtonsFragment() {
         buttonsFragment = ButtonsFragment.create(settings, cities);
         if (landscapeOrientation) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, buttonsFragment).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, buttonsFragment).commit();
         } else {
 //            getSupportFragmentManager().beginTransaction().replace(R.id.buttonsFragment, buttonsFragment).commit();
         }
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity
             if (needCityWeather) {
                 updateCityWeatherFragment();
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
         } else {
             if (needCityWeather) {
                 getSupportFragmentManager().beginTransaction().remove(activeFragment).commit();
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity
                 createButtonsFragment();
             } else {
                 getSupportFragmentManager().beginTransaction().remove(cityWeatherFragment).commit();
-                getSupportFragmentManager().beginTransaction().remove(buttonsFragment).commit();
+//                getSupportFragmentManager().beginTransaction().remove(buttonsFragment).commit();
                 getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
             }
             activeFragment = fragment;
@@ -223,12 +225,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_weather:
+                onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation), false);
                 Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_settings:
+                onChangeFragment(SettingsFragment.create(settings, cities), false);
                 Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_city_choose:
+                onChangeFragment(CityChooseFragment.create(settings, cities), false);
                 Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -265,12 +270,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.toolbar_add:
+                onChangeFragment(CityChooseFragment.create(settings, cities), false);
                 Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_clear:
                 Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_settings:
+                onChangeFragment(SettingsFragment.create(settings, cities), false);
                 Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
                 return true;
         }
