@@ -2,7 +2,6 @@ package ru.geekbrains.atmosphere;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,8 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import ru.geekbrains.atmosphere.city_weather.CityWeatherAdapter;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 
@@ -28,8 +24,6 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
 
     private static final String CLASS = CityWeatherFragment.class.getSimpleName();
     private static final boolean LOGGING = false;
-
-    private OnUpdateActiveCityListener mainActivityListener;
 
     private CityWeatherAdapter adapter;
     private CityWeatherSource cityWeatherSource;
@@ -85,13 +79,6 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
         adapter = new CityWeatherAdapter(getContext(), cityWeatherSource);
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener((view1, position) -> {
-            String activeCity = ((TextView) view1.findViewById(R.id.city)).getText().toString();
-            mainActivityListener.onUpdateActiveCity(activeCity);
-            Log.i(CLASS, "Active city - " + activeCity);
-            Snackbar.make(view, String.format("City %s, position %d", activeCity, position), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        });
-
         return view;
     }
 
@@ -101,14 +88,6 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
 
     public interface OnUpdateActiveCityListener {
         void onUpdateActiveCity(String activeCity);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof OnUpdateActiveCityListener) {
-            mainActivityListener = (OnUpdateActiveCityListener) context;
-        }
     }
 
     @Override

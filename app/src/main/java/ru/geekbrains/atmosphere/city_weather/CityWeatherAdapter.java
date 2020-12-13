@@ -18,7 +18,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
     private CityWeatherSource dataSource;
     private int position;
-    private OnItemClickListener itemClickListener;
     private final Context context;
 
     public CityWeatherAdapter(Context context, CityWeatherSource dataSource) {
@@ -31,10 +30,7 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_weather_item, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
-        if (itemClickListener != null) {
-            viewHolder.setOnClickListener(itemClickListener);
-            viewHolder.setOnLongClickListener(itemClickListener);
-        }
+        viewHolder.setOnLongClickListener();
         return viewHolder;
     }
 
@@ -47,14 +43,6 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     @Override
     public int getItemCount() {
         return dataSource.size();
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,18 +60,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
 
         }
 
-        public void setOnClickListener(final OnItemClickListener listener) {
-            card.setOnClickListener(view -> {
-                int adapterPosition = getAdapterPosition();                 // Получаем позицию адаптера
-                if (adapterPosition == RecyclerView.NO_POSITION)
-                    return;    // Проверяем ее на корректность
-                listener.onItemClick(view, adapterPosition);
-            });
-        }
-
-        public void setOnLongClickListener(final OnItemClickListener listener) {
+        public void setOnLongClickListener() {
             card.setOnLongClickListener(view -> {
-                position = getAdapterPosition();                 // Получаем позицию адаптера
+                position = getAdapterPosition();
                 return false;
             });
             ((Activity) context).registerForContextMenu(card);
@@ -108,18 +87,18 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
         }
     }
 
-    public void addCity(String city){
+    public void addCity(String city) {
         dataSource.addCity(city);
         notifyItemInserted(dataSource.size() - 1);
     }
 
-    public void removeCity(int position){
+    public void removeCity(int position) {
         dataSource.removeCity(position);
         Log.i("Adapter", "Remove city - " + position);
         notifyItemRemoved(position);
     }
 
-    public void clearCities(){
+    public void clearCities() {
         dataSource.clearCities();
         notifyDataSetChanged();
     }

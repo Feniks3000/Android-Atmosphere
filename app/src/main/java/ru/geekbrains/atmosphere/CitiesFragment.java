@@ -70,6 +70,7 @@ public class CitiesFragment extends Fragment implements View.OnClickListener, Ex
             if (validate(newCity, patternCityName, getResources().getString(R.string.errorCityName))
                     && !citiesAdapter.existsCity(getNewCity())) {
                 citiesAdapter.addCity(getNewCity());
+                onUpdateCitiesListener.onUpdateCities(new Cities(citiesAdapter.getData()));
                 newCity.setText(null);
             }
         });
