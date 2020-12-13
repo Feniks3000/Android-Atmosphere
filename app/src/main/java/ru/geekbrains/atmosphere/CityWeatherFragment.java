@@ -82,7 +82,7 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
         animator.setRemoveDuration(500);
         recyclerView.setItemAnimator(animator);
 
-        adapter = new CityWeatherAdapter(cityWeatherSource, getContext());
+        adapter = new CityWeatherAdapter(getContext(), cityWeatherSource);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener((view1, position) -> {

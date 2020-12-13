@@ -26,7 +26,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
-import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
 import ru.geekbrains.atmosphere.settings.Cities;
@@ -34,9 +33,9 @@ import ru.geekbrains.atmosphere.settings.Settings;
 
 public class MainActivity extends AppCompatActivity
         implements
-        SettingsFragment.OnUpdateSettingsAndCitiesListener,
+        SettingsFragment.OnUpdateSettingsListener,
+        CitiesFragment.OnUpdateCitiesListener,
         CityWeatherFragment.OnUpdateActiveCityListener,
-        ButtonsFragment.GetDataListener,
         OnChangeFragmentListener,
         ExtraConstants,
         NavigationView.OnNavigationItemSelectedListener {
@@ -51,15 +50,14 @@ public class MainActivity extends AppCompatActivity
     private String activeCity;
 
     CityWeatherFragment cityWeatherFragment;
-    ButtonsFragment buttonsFragment;
     Fragment activeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setTheme(getCurrentTheme());
         setContentView(R.layout.activity_main);
         initNavigationAndMenuElements();
+        //setTheme(getCurrentTheme());
 
         // Инициализируем основные параметры приложения
         if (savedInstanceState == null) {
@@ -76,8 +74,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         createCityWeatherFragment();    // Создаем основной фрагмент с погодой
-        createButtonsFragment();        // Создаем фрагмент с кнопками
-
     }
 
     private void initNavigationAndMenuElements() {
@@ -94,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             // TODO: Добавить открытие формы добавления города
-            onChangeFragment(CityChooseFragment.create(settings, cities), false);
+            onChangeFragment(CitiesFragment.create(cities), false);
             Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
         });
     }
@@ -152,15 +148,6 @@ public class MainActivity extends AppCompatActivity
         createCityWeatherFragment();
     }
 
-    private void createButtonsFragment() {
-        buttonsFragment = ButtonsFragment.create(settings, cities);
-        if (landscapeOrientation) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, buttonsFragment).commit();
-        } else {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.buttonsFragment, buttonsFragment).commit();
-        }
-    }
-
     // Заменяем фрагменты в макете
     @Override
     public void onChangeFragment(androidx.fragment.app.Fragment fragment, boolean needCityWeather) {
@@ -173,7 +160,6 @@ public class MainActivity extends AppCompatActivity
             if (needCityWeather) {
                 getSupportFragmentManager().beginTransaction().remove(activeFragment).commit();
                 updateCityWeatherFragment();
-                createButtonsFragment();
             } else {
                 getSupportFragmentManager().beginTransaction().remove(cityWeatherFragment).commit();
 //                getSupportFragmentManager().beginTransaction().remove(buttonsFragment).commit();
@@ -184,11 +170,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onUpdateSettingsAndCities(Settings settings, Cities cities) {
+    public void onUpdateSettings(Settings settings) {
         this.settings = settings;
-        this.cities = cities;
         setMyTheme(settings);
-        recreate();
+        //recreate();
+    }
+
+    @Override
+    public void onUpdateCities(Cities cities) {
+        this.cities = cities;
     }
 
     public void setMyTheme(Settings settings) {
@@ -202,11 +192,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onUpdateActiveCity(String activeCity) {
         this.activeCity = activeCity;
-    }
-
-    @Override
-    public String getActiveCity() {
-        return activeCity;
     }
 
     @Override
@@ -229,11 +214,11 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_settings:
-                onChangeFragment(SettingsFragment.create(settings, cities), false);
+                onChangeFragment(SettingsFragment.create(settings), false);
                 Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_city_choose:
-                onChangeFragment(CityChooseFragment.create(settings, cities), false);
+                onChangeFragment(CitiesFragment.create(cities), false);
                 Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -270,14 +255,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.toolbar_add:
-                onChangeFragment(CityChooseFragment.create(settings, cities), false);
+                onChangeFragment(CitiesFragment.create(cities), false);
                 Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_clear:
                 Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_settings:
-                onChangeFragment(SettingsFragment.create(settings, cities), false);
+                onChangeFragment(SettingsFragment.create(settings), false);
                 Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
                 return true;
         }
@@ -288,6 +273,14 @@ public class MainActivity extends AppCompatActivity
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context, menu);
+        int id = v.getId();
+        switch (id) {
+            case R.id.cityWeatherCard:
+                inflater.inflate(R.menu.context_weather, menu);
+                break;
+            case R.id.content:
+                inflater.inflate(R.menu.context_cities, menu);
+                break;
+        }
     }
 }

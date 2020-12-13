@@ -26,13 +26,6 @@ public class Cities implements Parcelable {
         this.cities = cities;
     }
 
-    public void addCity(String city) {
-        if (cities == null) {
-            cities = new ArrayList();
-        }
-        cities.add(city);
-    }
-
     @Override
     public String toString() {
         return "Cities{" +
@@ -42,6 +35,10 @@ public class Cities implements Parcelable {
 
     public Cities(String[] array) {
         cities = new ArrayList<>(Arrays.asList(array));
+    }
+
+    public Cities(List<String> cities) {
+        this.cities = cities;
     }
 
     protected Cities(Parcel in) {

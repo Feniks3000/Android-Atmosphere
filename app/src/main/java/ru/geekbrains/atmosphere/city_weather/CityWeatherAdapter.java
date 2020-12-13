@@ -21,9 +21,9 @@ public class CityWeatherAdapter extends RecyclerView.Adapter<CityWeatherAdapter.
     private OnItemClickListener itemClickListener;
     private final Context context;
 
-    public CityWeatherAdapter(CityWeatherSource dataSource, Context context) {
-        this.dataSource = dataSource;
+    public CityWeatherAdapter(Context context, CityWeatherSource dataSource) {
         this.context = context;
+        this.dataSource = dataSource;
     }
 
     @Override

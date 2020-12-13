@@ -20,6 +20,7 @@
     <dimen name="cardElevation">3dp</dimen>
     <dimen name="sizeCardSeparator">10dp</dimen>
     <dimen name="radiusButtons">10dp</dimen>
+    <dimen name="textCities">24sp</dimen>
 
     <!-- Navigation settings -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
