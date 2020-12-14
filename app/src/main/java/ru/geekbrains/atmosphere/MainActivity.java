@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initNavigationAndMenuElements();
-        //setTheme(getCurrentTheme());
+        setTheme(getCurrentTheme());
 
         if (savedInstanceState == null) {
             initApp();
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         this.settings = settings;
         Log.i(CLASS, this.settings.toString());
         setMyTheme(settings);
-        //recreate();
+        recreate();
     }
 
     @Override

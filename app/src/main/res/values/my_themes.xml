@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="DayTheme" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
-    <style name="NightTheme" parent="Theme.MaterialComponents"/>
+    <style name="DayTheme" parent="Theme.Atmosphere">
+        <item name="android:textColor">@color/black</item>
+<!--        <item name="android:background">@color/design_default_color_on_primary</item>-->
+    </style>
+    <style name="NightTheme" parent="Theme.Atmosphere">
+        <item name="android:textColor">@color/teal_700</item>
+<!--        <item name="android:background">@color/design_default_color_primary_dark</item>-->
+    </style>
 </resources>
