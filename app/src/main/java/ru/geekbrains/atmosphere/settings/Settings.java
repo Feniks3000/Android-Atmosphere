@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Settings implements Parcelable {
     public static final int DEFAULT_THEME = 2;
-    public static final int DEFAULT_ALL_DETAIL = 1;
+    public static final boolean DEFAULT_ALL_DETAIL = true;
 
     private int theme;
     private int allDetail;

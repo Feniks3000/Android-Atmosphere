@@ -25,7 +25,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private SwitchCompat settingWeatherDetail;
     private Settings settings;
 
-    private SettingsFragment() {
+    public SettingsFragment() {
     }
 
     public static SettingsFragment create(Settings settings) {

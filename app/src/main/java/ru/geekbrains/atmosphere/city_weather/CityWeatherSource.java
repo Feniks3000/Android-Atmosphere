@@ -10,22 +10,22 @@ import java.util.List;
 import java.util.Random;
 
 import ru.geekbrains.atmosphere.R;
-import ru.geekbrains.atmosphere.settings.Cities;
+import ru.geekbrains.atmosphere.cities.Cities;
 
 public class CityWeatherSource implements Parcelable {
 
-    private List<CityWeather> dataSource;
+    private List<CityWeather> data;
     private Resources resources;
     private String[] cities;
 
     public CityWeatherSource(Resources resources, Cities cities) {
-        dataSource = new ArrayList<>();
+        data = new ArrayList<>();
         this.resources = resources;
         this.cities = cities.getCitiesArray();
     }
 
     protected CityWeatherSource(Parcel in) {
-        dataSource = in.createTypedArrayList(CityWeather.CREATOR);
+        data = in.createTypedArrayList(CityWeather.CREATOR);
         cities = in.createStringArray();
     }
 
@@ -59,13 +59,13 @@ public class CityWeatherSource implements Parcelable {
                 next5Days.add(new DayWeather(String.valueOf(10 + j), morningTemperature, middayTemperature, eveningTemperature));
             }
             CityWeather cityWeather = new CityWeather(cities[i], temperature, images[random.nextInt(3)], next4Hours, next5Days);
-            dataSource.add(cityWeather);
+            data.add(cityWeather);
         }
         return this;
     }
 
     public CityWeatherSource rebuild(Cities cities) {
-        dataSource = new ArrayList<>();
+        data = new ArrayList<>();
         this.cities = cities.getCitiesArray();
         build();
         return this;
@@ -73,23 +73,23 @@ public class CityWeatherSource implements Parcelable {
 
     public void addCity(String city){
         CityWeather cityWeather = new CityWeather(city, 0, null, null, null);
-        dataSource.add(cityWeather);
+        data.add(cityWeather);
     }
 
     void removeCity(int position){
-        dataSource.remove(position);
+        data.remove(position);
     }
 
     void clearCities(){
-        dataSource.clear();
+        data.clear();
     }
 
     public CityWeather getCityWeather(int position) {
-        return dataSource.get(position);
+        return data.get(position);
     }
 
     public int size() {
-        return dataSource.size();
+        return data.size();
     }
 
     private int[] getImageArray() {
@@ -105,7 +105,7 @@ public class CityWeatherSource implements Parcelable {
     @Override
     public String toString() {
         return "CityWeatherSource{" +
-                "dataSource=" + dataSource +
+                "dataSource=" + data +
                 '}';
     }
 
@@ -116,7 +116,7 @@ public class CityWeatherSource implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(dataSource);
+        dest.writeTypedList(data);
         dest.writeStringArray(cities);
     }
 }

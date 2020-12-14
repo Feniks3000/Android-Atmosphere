@@ -86,10 +86,6 @@ public class CityWeatherFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
     }
 
-    public interface OnUpdateActiveCityListener {
-        void onUpdateActiveCity(String activeCity);
-    }
-
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

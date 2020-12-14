@@ -1,6 +1,6 @@
 package ru.geekbrains.atmosphere.singletone;
 
-import ru.geekbrains.atmosphere.settings.Cities;
+import ru.geekbrains.atmosphere.cities.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
 public class Storage {

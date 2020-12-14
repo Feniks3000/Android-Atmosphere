@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.regex.Pattern;
 
-import ru.geekbrains.atmosphere.settings.Cities;
-import ru.geekbrains.atmosphere.settings.CitiesAdapter;
+import ru.geekbrains.atmosphere.cities.Cities;
+import ru.geekbrains.atmosphere.cities.CitiesAdapter;
 
 public class CitiesFragment extends Fragment implements View.OnClickListener, ExtraConstants {
 

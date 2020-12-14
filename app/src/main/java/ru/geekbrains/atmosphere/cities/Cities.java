@@ -1,4 +1,4 @@
-package ru.geekbrains.atmosphere.settings;
+package ru.geekbrains.atmosphere.cities;
 
 import android.os.Parcel;
 import android.os.Parcelable;

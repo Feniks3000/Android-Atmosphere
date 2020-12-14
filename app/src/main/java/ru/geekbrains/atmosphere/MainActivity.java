@@ -24,19 +24,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import ru.geekbrains.atmosphere.cities.Cities;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
-import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
 public class MainActivity extends AppCompatActivity
         implements
         SettingsFragment.OnUpdateSettingsListener,
         CitiesFragment.OnUpdateCitiesListener,
-        CityWeatherFragment.OnUpdateActiveCityListener,
-        OnChangeFragmentListener,
         ExtraConstants,
         NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,10 +46,7 @@ public class MainActivity extends AppCompatActivity
     private CityWeatherSource dataSource;
     private Settings settings;
     private Cities cities;
-    private String activeCity;
-
-    CityWeatherFragment cityWeatherFragment;
-    Fragment activeFragment;
+    private Fragment activeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +55,6 @@ public class MainActivity extends AppCompatActivity
         initNavigationAndMenuElements();
         //setTheme(getCurrentTheme());
 
-        // Инициализируем основные параметры приложения
         if (savedInstanceState == null) {
             initApp();
         } else {
@@ -68,12 +63,10 @@ public class MainActivity extends AppCompatActivity
 
         if (LOGGING) {
             Log.d(CLASS, "OnCreate. Landscape orientation - " + landscapeOrientation);
-            Log.d(CLASS, "OnCreate. Data source - " + dataSource);
             Log.d(CLASS, "OnCreate. Settings - " + settings);
             Log.d(CLASS, "OnCreate. Cities - " + cities);
+            Log.d(CLASS, "OnCreate. Data source - " + dataSource);
         }
-
-        createCityWeatherFragment();    // Создаем основной фрагмент с погодой
     }
 
     private void initNavigationAndMenuElements() {
@@ -89,9 +82,13 @@ public class MainActivity extends AppCompatActivity
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            // TODO: Добавить открытие формы добавления города
-            onChangeFragment(CitiesFragment.create(cities), false);
-            Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+            // TODO: Отображать кнопку во фсех фрагментах, кроме фрагмента с городами
+            if (activeFragment instanceof CitiesFragment) {
+                Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
+            } else {
+                onChangeFragment(CitiesFragment.create(cities));
+                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -126,52 +123,44 @@ public class MainActivity extends AppCompatActivity
         landscapeOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         settings = savedInstanceState.getParcelable(SETTINGS);
         cities = savedInstanceState.getParcelable(CITIES);
-        activeCity = savedInstanceState.getString(ACTIVE_CITY);
-        dataSource = savedInstanceState.getParcelable(DATA_SOURCE);
+        dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
+        switch (savedInstanceState.getInt(ACTIVE_FRAGMENT, 0)) {
+            case 0:
+                onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
+                Toast.makeText(this, "create CityWeatherFragment", Toast.LENGTH_LONG).show();
+            case 1:
+                onChangeFragment(SettingsFragment.create(settings));
+                Toast.makeText(this, "create SettingsFragment", Toast.LENGTH_LONG).show();
+            case 2:
+                onChangeFragment(CitiesFragment.create(cities));
+                Toast.makeText(this, "create CitiesFragment", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initApp() {
-        cities = new Cities(getResources().getStringArray(R.array.cities));
-        settings = new Settings(Settings.DEFAULT_THEME, Settings.DEFAULT_ALL_DETAIL);
         landscapeOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        activeCity = cities.getFirstCity();
-        dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
-    }
 
-    private void createCityWeatherFragment() {
-        cityWeatherFragment = CityWeatherFragment.create(dataSource, landscapeOrientation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.weatherFragment, cityWeatherFragment).commit();
-    }
-
-    private void updateCityWeatherFragment() {
-        dataSource.rebuild(cities);
-        createCityWeatherFragment();
-    }
-
-    // Заменяем фрагменты в макете
-    @Override
-    public void onChangeFragment(androidx.fragment.app.Fragment fragment, boolean needCityWeather) {
-        if (landscapeOrientation) {
-            if (needCityWeather) {
-                updateCityWeatherFragment();
-            }
-//            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
-        } else {
-            if (needCityWeather) {
-                getSupportFragmentManager().beginTransaction().remove(activeFragment).commit();
-                updateCityWeatherFragment();
-            } else {
-                getSupportFragmentManager().beginTransaction().remove(cityWeatherFragment).commit();
-//                getSupportFragmentManager().beginTransaction().remove(buttonsFragment).commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
-            }
-            activeFragment = fragment;
+        SharedPreferences sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
+        if (sharedPreferences != null) {
+            int theme = sharedPreferences.getInt(THEME, Settings.DEFAULT_THEME);
+            boolean allDetail = sharedPreferences.getBoolean(ALL_DETAIL, Settings.DEFAULT_ALL_DETAIL);
+            settings = new Settings(theme, allDetail ? 1 : 0);
         }
+
+        cities = new Cities(getResources().getStringArray(R.array.cities));
+        dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
+        onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
+    }
+
+    public void onChangeFragment(androidx.fragment.app.Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.weatherFragment, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
+        activeFragment = fragment;
     }
 
     @Override
     public void onUpdateSettings(Settings settings) {
         this.settings = settings;
+        Log.i(CLASS, this.settings.toString());
         setMyTheme(settings);
         //recreate();
     }
@@ -179,6 +168,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onUpdateCities(Cities cities) {
         this.cities = cities;
+        Log.i(CLASS, this.cities.toString());
     }
 
     public void setMyTheme(Settings settings) {
@@ -190,17 +180,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onUpdateActiveCity(String activeCity) {
-        this.activeCity = activeCity;
-    }
-
-    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         Log.i(CLASS, "onSaveInstanceState");
         outState.putParcelable(SETTINGS, settings);
         outState.putParcelable(CITIES, cities);
-        outState.putString(ACTIVE_CITY, activeCity);
-        outState.putParcelable(DATA_SOURCE, dataSource);
+        int fragment = 0;
+        if (activeFragment instanceof CityWeatherFragment) {
+            fragment = 0;
+        } else if (activeFragment instanceof SettingsFragment) {
+            fragment = 1;
+        } else if (activeFragment instanceof CitiesFragment) {
+            fragment = 2;
+        }
+        outState.putInt(ACTIVE_FRAGMENT, fragment);
         super.onSaveInstanceState(outState);
     }
 
@@ -210,15 +202,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_weather:
-                onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation), false);
+                onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
                 Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_settings:
-                onChangeFragment(SettingsFragment.create(settings), false);
+                onChangeFragment(SettingsFragment.create(settings));
                 Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_city_choose:
-                onChangeFragment(CitiesFragment.create(cities), false);
+                onChangeFragment(CitiesFragment.create(cities));
                 Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -255,14 +247,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.toolbar_add:
-                onChangeFragment(CitiesFragment.create(cities), false);
+                onChangeFragment(CitiesFragment.create(cities));
                 Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_clear:
+                cities.setCities(new ArrayList<>());
+                dataSource.rebuild(cities);
                 Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_settings:
-                onChangeFragment(SettingsFragment.create(settings), false);
+                onChangeFragment(SettingsFragment.create(settings));
                 Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
                 return true;
         }

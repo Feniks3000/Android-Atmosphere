@@ -1,4 +1,4 @@
-package ru.geekbrains.atmosphere.settings;
+package ru.geekbrains.atmosphere.cities;
 
 import android.app.Activity;
 import android.content.Context;
