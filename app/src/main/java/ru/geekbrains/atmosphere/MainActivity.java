@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity
     public void onUpdateCities(Cities cities) {
         this.cities = cities;
         Log.i(CLASS, this.cities.toString());
+        dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
     }
 
     public void setMyTheme(Settings settings) {

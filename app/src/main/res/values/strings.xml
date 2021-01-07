@@ -85,4 +85,6 @@
         <item>Novosibirsk</item>
         <item>St. Petersburg</item>
     </string-array>
+
+    <string name="WEATHER_URL" translatable="false">https://api.openweathermap.org/data/2.5/weather?q=%s</string>
 </resources>
