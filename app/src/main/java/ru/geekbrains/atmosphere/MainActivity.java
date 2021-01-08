@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity
     public void onUpdateCities(Cities cities) {
         this.cities = cities;
         Log.i(CLASS, this.cities.toString());
-        dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
+        dataSource = dataSource.rebuild(cities);
     }
 
     public void setMyTheme(Settings settings) {
@@ -252,8 +253,9 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_clear:
-                cities.setCities(new ArrayList<>());
-                dataSource.rebuild(cities);
+                showClearCitiesDialog();
+                //cities.setCities(new ArrayList<>());
+                //dataSource.rebuild(cities);
                 Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_settings:
@@ -277,5 +279,23 @@ public class MainActivity extends AppCompatActivity
                 inflater.inflate(R.menu.context_cities, menu);
                 break;
         }
+    }
+
+    public void showClearCitiesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.clear_cities_dialog_title)
+                .setMessage(R.string.clear_cities_dialog_message)
+                .setCancelable(true)
+                .setPositiveButton(R.string.clear_cities_dialog_button_yes, (dialog, which) -> {
+                    cities.setCities(new ArrayList<>());
+                    dataSource.rebuild(cities);
+                })
+                .setNegativeButton(R.string.clear_cities_dialog_button_no, (dialog, which) -> {
+                    Toast.makeText(getApplicationContext(), "Dialog - Cancel", Toast.LENGTH_LONG).show();
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        Toast.makeText(this, "Dialog - Show", Toast.LENGTH_LONG).show();
     }
 }

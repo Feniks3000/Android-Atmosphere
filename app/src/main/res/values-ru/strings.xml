@@ -86,4 +86,11 @@
         <item>Новосибирск</item>
         <item>Санкт-Петербург</item>
     </string-array>
+
+    <!-- clear cities dialog -->
+    <string name="clear_cities_dialog_title">Внимание!</string>
+    <string name="clear_cities_dialog_message">Вы собиратесь очистить список городов. Уверены?</string>
+    <string name="clear_cities_dialog_button_yes">Да</string>
+    <string name="clear_cities_dialog_button_no">Нет</string>
+
 </resources>

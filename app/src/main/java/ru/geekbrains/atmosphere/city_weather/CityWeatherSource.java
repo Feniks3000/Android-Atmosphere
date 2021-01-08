@@ -80,7 +80,6 @@ public class CityWeatherSource implements Parcelable {
 
                         final WeatherRequest weatherRequest = (new Gson()).fromJson(stringWithJson.toString(), WeatherRequest.class);
 
-                        Integer temperature = random.nextInt(30) - 10;
                         List<HourWeather> next4Hours = new ArrayList<>();
                         for (int j = 0; j < 4; j++) {
                             next4Hours.add(new HourWeather(String.valueOf(10 + j), j * 10 + random.nextInt(10)));
