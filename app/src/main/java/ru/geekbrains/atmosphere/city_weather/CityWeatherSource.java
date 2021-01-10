@@ -21,6 +21,7 @@ import javax.net.ssl.HttpsURLConnection;
 import ru.geekbrains.atmosphere.BuildConfig;
 import ru.geekbrains.atmosphere.R;
 import ru.geekbrains.atmosphere.cities.Cities;
+import ru.geekbrains.atmosphere.request.WeatherParser;
 import ru.geekbrains.atmosphere.request.WeatherRequest;
 
 public class CityWeatherSource implements Parcelable {
@@ -69,16 +70,7 @@ public class CityWeatherSource implements Parcelable {
                         httpsURLConnection.setReadTimeout(10000);
 
                         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream()));
-                        StringBuilder stringWithJson = new StringBuilder();
-                        String line;
-                        while ((line = bufferedReader.readLine()) != null) {
-                            stringWithJson.append(line).append("\n");
-                        }
-
-                        // Начиная с API 24
-                        //String stringWithJson = bufferedReader.lines().collect(Collectors.joining("\n"));
-
-                        final WeatherRequest weatherRequest = (new Gson()).fromJson(stringWithJson.toString(), WeatherRequest.class);
+                        final WeatherRequest weatherRequest = WeatherParser.parser(bufferedReader);
 
                         List<HourWeather> next4Hours = new ArrayList<>();
                         for (int j = 0; j < 4; j++) {
