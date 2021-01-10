@@ -62,10 +62,35 @@
     <!-- about city -->
     <string name="weatherIn">погода в %s</string>
 
+    <!-- navigation -->
+    <string name="nav_weather">Погода</string>
+    <string name="nav_settings">Настройки</string>
+    <string name="nav_city_choose">Выбор города</string>
+    <string name="navigation_drawer_open">Открыта панель навигации</string>
+    <string name="navigation_drawer_close">Закрыта панель навигации</string>
+
+    <!-- toolbar / popup menu -->
+    <string name="toolbar_add">Добавить город</string>
+    <string name="toolbar_clear">Очистить города</string>
+    <string name="toolbar_search">Поиск</string>
+    <string name="toolbar_settings">Настройки</string>
+    <string name="context_update">Обновить прогноз</string>
+    <string name="context_delete">Удалить город</string>
+    <string name="context_move_up">Передвинуть выше</string>
+    <string name="context_move_down">Передвинуть ниже</string>
+    <string name="context_clear">Очистить города</string>
+
     <string-array name="cities">
         <item>Кемерово</item>
         <item>Москва</item>
         <item>Новосибирск</item>
         <item>Санкт-Петербург</item>
     </string-array>
+
+    <!-- clear cities dialog -->
+    <string name="clear_cities_dialog_title">Внимание!</string>
+    <string name="clear_cities_dialog_message">Вы собиратесь очистить список городов. Уверены?</string>
+    <string name="clear_cities_dialog_button_yes">Да</string>
+    <string name="clear_cities_dialog_button_no">Нет</string>
+
 </resources>

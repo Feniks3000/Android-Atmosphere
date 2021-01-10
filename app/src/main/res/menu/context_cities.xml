@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/context_move_up"
+        android:id="@+id/context_move_up"
+        android:orderInCategory="10"/>
+    <item
+        android:title="@string/context_move_down"
+        android:id="@+id/context_move_down"
+        android:orderInCategory="20"/>
+    <item
+        android:title="@string/context_delete"
+        android:id="@+id/context_delete"
+        android:orderInCategory="30"/>
+    <item
+        android:title="@string/context_clear"
+        android:id="@+id/context_clear"
+        android:orderInCategory="40"/>
+</menu>

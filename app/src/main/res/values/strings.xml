@@ -61,6 +61,24 @@
     <!-- about city -->
     <string name="weatherIn">weather in %s</string>
 
+    <!-- navigation -->
+    <string name="nav_weather">Weather</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_city_choose">City choose</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- toolbar / popup menu -->
+    <string name="toolbar_add">Add city</string>
+    <string name="toolbar_clear">Clear cities</string>
+    <string name="toolbar_search">Search</string>
+    <string name="toolbar_settings">Settings</string>
+    <string name="context_update">Update weather</string>
+    <string name="context_delete">Delete city</string>
+    <string name="context_move_up">Move up</string>
+    <string name="context_move_down">Move down</string>
+    <string name="context_clear">Clear list</string>
+
     <string-array name="cities">
         <item>Kemerovo</item>
         <item>Moscow</item>
@@ -68,4 +86,11 @@
         <item>St. Petersburg</item>
     </string-array>
 
+    <string name="WEATHER_URL" translatable="false">https://api.openweathermap.org/data/2.5/weather?q=%s</string>
+
+    <!-- clear cities dialog -->
+    <string name="clear_cities_dialog_title">Attention!</string>
+    <string name="clear_cities_dialog_message">You are about to clear the list of cities. Sure?</string>
+    <string name="clear_cities_dialog_button_yes">Yes</string>
+    <string name="clear_cities_dialog_button_no">No</string>
 </resources>

@@ -2,7 +2,7 @@ package ru.geekbrains.atmosphere.city_weather;
 
 import android.content.res.Resources;
 
-import ru.geekbrains.atmosphere.settings.Cities;
+import ru.geekbrains.atmosphere.cities.Cities;
 
 public class CityWeatherSourceBuilder {
     private Resources resources;

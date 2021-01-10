@@ -4,25 +4,41 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import ru.geekbrains.atmosphere.cities.Cities;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
-import ru.geekbrains.atmosphere.settings.Cities;
 import ru.geekbrains.atmosphere.settings.Settings;
 
 public class MainActivity extends AppCompatActivity
         implements
-        SettingsFragment.OnUpdateSettingsAndCitiesListener,
-        CityWeatherFragment.OnUpdateActiveCityListener,
-        ButtonsFragment.GetDataListener,
-        OnChangeFragmentListener,
-        ExtraConstants {
+        SettingsFragment.OnUpdateSettingsListener,
+        CitiesFragment.OnUpdateCitiesListener,
+        ExtraConstants,
+        NavigationView.OnNavigationItemSelectedListener {
 
     private static final String CLASS = MainActivity.class.getSimpleName();
     private static final boolean LOGGING = false;
@@ -31,19 +47,15 @@ public class MainActivity extends AppCompatActivity
     private CityWeatherSource dataSource;
     private Settings settings;
     private Cities cities;
-    private String activeCity;
-
-    CityWeatherFragment cityWeatherFragment;
-    ButtonsFragment buttonsFragment;
-    Fragment activeFragment;
+    private Fragment activeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(getCurrentTheme());
         setContentView(R.layout.activity_main);
+        initNavigationAndMenuElements();
+        setTheme(getCurrentTheme());
 
-        // Инициализируем основные параметры приложения
         if (savedInstanceState == null) {
             initApp();
         } else {
@@ -52,13 +64,33 @@ public class MainActivity extends AppCompatActivity
 
         if (LOGGING) {
             Log.d(CLASS, "OnCreate. Landscape orientation - " + landscapeOrientation);
-            Log.d(CLASS, "OnCreate. Data source - " + dataSource);
             Log.d(CLASS, "OnCreate. Settings - " + settings);
             Log.d(CLASS, "OnCreate. Cities - " + cities);
+            Log.d(CLASS, "OnCreate. Data source - " + dataSource);
         }
+    }
 
-        createCityWeatherFragment();    // Создаем основной фрагмент с погодой
-        createButtonsFragment();        // Создаем фрагмент с кнопками
+    private void initNavigationAndMenuElements() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> {
+            // TODO: Отображать кнопку во фсех фрагментах, кроме фрагмента с городами
+            if (activeFragment instanceof CitiesFragment) {
+                Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
+            } else {
+                onChangeFragment(CitiesFragment.create(cities));
+                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private int getCurrentTheme() {
@@ -92,65 +124,53 @@ public class MainActivity extends AppCompatActivity
         landscapeOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         settings = savedInstanceState.getParcelable(SETTINGS);
         cities = savedInstanceState.getParcelable(CITIES);
-        activeCity = savedInstanceState.getString(ACTIVE_CITY);
-        dataSource = savedInstanceState.getParcelable(DATA_SOURCE);
+        dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
+        switch (savedInstanceState.getInt(ACTIVE_FRAGMENT, 0)) {
+            case 0:
+                onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
+                Toast.makeText(this, "create CityWeatherFragment", Toast.LENGTH_LONG).show();
+            case 1:
+                onChangeFragment(SettingsFragment.create(settings));
+                Toast.makeText(this, "create SettingsFragment", Toast.LENGTH_LONG).show();
+            case 2:
+                onChangeFragment(CitiesFragment.create(cities));
+                Toast.makeText(this, "create CitiesFragment", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initApp() {
-        cities = new Cities(getResources().getStringArray(R.array.cities));
-        settings = new Settings(Settings.DEFAULT_THEME, Settings.DEFAULT_ALL_DETAIL);
         landscapeOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        activeCity = cities.getFirstCity();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
+        if (sharedPreferences != null) {
+            int theme = sharedPreferences.getInt(THEME, Settings.DEFAULT_THEME);
+            boolean allDetail = sharedPreferences.getBoolean(ALL_DETAIL, Settings.DEFAULT_ALL_DETAIL);
+            settings = new Settings(theme, allDetail ? 1 : 0);
+        }
+
+        cities = new Cities(getResources().getStringArray(R.array.cities));
         dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
+        onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
     }
 
-    private void createCityWeatherFragment() {
-        cityWeatherFragment = CityWeatherFragment.create(dataSource, landscapeOrientation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.weatherFragment, cityWeatherFragment).commit();
-    }
-
-    private void updateCityWeatherFragment() {
-        dataSource.rebuild(cities);
-        createCityWeatherFragment();
-    }
-
-    private void createButtonsFragment() {
-        buttonsFragment = ButtonsFragment.create(settings, cities);
-        if (landscapeOrientation) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, buttonsFragment).commit();
-        } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.buttonsFragment, buttonsFragment).commit();
-        }
-    }
-
-    // Заменяем фрагменты в макете
-    @Override
-    public void onChangeFragment(androidx.fragment.app.Fragment fragment, boolean needCityWeather) {
-        if (landscapeOrientation) {
-            if (needCityWeather) {
-                updateCityWeatherFragment();
-            }
-            getSupportFragmentManager().beginTransaction().replace(R.id.infoFragment, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
-        } else {
-            if (needCityWeather) {
-                getSupportFragmentManager().beginTransaction().remove(activeFragment).commit();
-                updateCityWeatherFragment();
-                createButtonsFragment();
-            } else {
-                getSupportFragmentManager().beginTransaction().remove(cityWeatherFragment).commit();
-                getSupportFragmentManager().beginTransaction().remove(buttonsFragment).commit();
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
-            }
-            activeFragment = fragment;
-        }
+    public void onChangeFragment(androidx.fragment.app.Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.weatherFragment, fragment).addToBackStack(String.valueOf(fragment.getId())).commit();
+        activeFragment = fragment;
     }
 
     @Override
-    public void onUpdateSettingsAndCities(Settings settings, Cities cities) {
+    public void onUpdateSettings(Settings settings) {
         this.settings = settings;
-        this.cities = cities;
+        Log.i(CLASS, this.settings.toString());
         setMyTheme(settings);
         recreate();
+    }
+
+    @Override
+    public void onUpdateCities(Cities cities) {
+        this.cities = cities;
+        Log.i(CLASS, this.cities.toString());
+        dataSource = dataSource.rebuild(cities);
     }
 
     public void setMyTheme(Settings settings) {
@@ -162,22 +182,120 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onUpdateActiveCity(String activeCity) {
-        this.activeCity = activeCity;
-    }
-
-    @Override
-    public String getActiveCity() {
-        return activeCity;
-    }
-
-    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         Log.i(CLASS, "onSaveInstanceState");
         outState.putParcelable(SETTINGS, settings);
         outState.putParcelable(CITIES, cities);
-        outState.putString(ACTIVE_CITY, activeCity);
-        outState.putParcelable(DATA_SOURCE, dataSource);
+        int fragment = 0;
+        if (activeFragment instanceof CityWeatherFragment) {
+            fragment = 0;
+        } else if (activeFragment instanceof SettingsFragment) {
+            fragment = 1;
+        } else if (activeFragment instanceof CitiesFragment) {
+            fragment = 2;
+        }
+        outState.putInt(ACTIVE_FRAGMENT, fragment);
         super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.nav_weather:
+                onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
+                Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_settings:
+                onChangeFragment(SettingsFragment.create(settings));
+                Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_city_choose:
+                onChangeFragment(CitiesFragment.create(cities));
+                Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
+                break;
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem search = menu.findItem(R.id.toolbar_search);
+        final SearchView searchText = (SearchView) search.getActionView();
+
+        searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Snackbar.make(searchText, query, Snackbar.LENGTH_LONG).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.toolbar_add:
+                onChangeFragment(CitiesFragment.create(cities));
+                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.toolbar_clear:
+                showClearCitiesDialog();
+                //cities.setCities(new ArrayList<>());
+                //dataSource.rebuild(cities);
+                Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.toolbar_settings:
+                onChangeFragment(SettingsFragment.create(settings));
+                Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        int id = v.getId();
+        switch (id) {
+            case R.id.cityWeatherCard:
+                inflater.inflate(R.menu.context_weather, menu);
+                break;
+            case R.id.content:
+                inflater.inflate(R.menu.context_cities, menu);
+                break;
+        }
+    }
+
+    public void showClearCitiesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.clear_cities_dialog_title)
+                .setMessage(R.string.clear_cities_dialog_message)
+                .setCancelable(true)
+                .setPositiveButton(R.string.clear_cities_dialog_button_yes, (dialog, which) -> {
+                    cities.setCities(new ArrayList<>());
+                    dataSource.rebuild(cities);
+                })
+                .setNegativeButton(R.string.clear_cities_dialog_button_no, (dialog, which) -> {
+                    Toast.makeText(getApplicationContext(), "Dialog - Cancel", Toast.LENGTH_LONG).show();
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        Toast.makeText(this, "Dialog - Show", Toast.LENGTH_LONG).show();
     }
 }
