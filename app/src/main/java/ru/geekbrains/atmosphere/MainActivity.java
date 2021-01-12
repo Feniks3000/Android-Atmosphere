@@ -1,5 +1,9 @@
 package ru.geekbrains.atmosphere;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -29,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import ru.geekbrains.atmosphere.cities.Cities;
+import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
 import ru.geekbrains.atmosphere.settings.Settings;
@@ -48,6 +53,8 @@ public class MainActivity extends AppCompatActivity
     private Settings settings;
     private Cities cities;
     private Fragment activeFragment;
+
+    public static final String BROADCAST_ACTION_FINISHED = "ru.geekbrains.atmosphere.data_request.request_finished";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,4 +305,27 @@ public class MainActivity extends AppCompatActivity
         alertDialog.show();
         Toast.makeText(this, "Dialog - Show", Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(requestFinishedReceiver, new IntentFilter(BROADCAST_ACTION_FINISHED));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(requestFinishedReceiver);
+    }
+
+    private final BroadcastReceiver requestFinishedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final ArrayList<CityWeather> result = intent.getParcelableArrayListExtra(WEATHER_DATA);
+            Log.i(CLASS, "cities " + cities);
+            Log.i(CLASS, "BroadcastReceiver " + result.toString());
+            dataSource.update(result);
+        }
+    };
+
 }
