@@ -93,4 +93,7 @@
     <string name="clear_cities_dialog_button_yes">Да</string>
     <string name="clear_cities_dialog_button_no">Нет</string>
 
+    <string name="backgroundDescription">Фоновое изображение</string>
+    <string name="backgroundImageUrl">https://nost1.gismeteo.ru/images/2018/10/f088402b.jpg</string>
+
 </resources>

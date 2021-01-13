@@ -1,4 +1,4 @@
-package ru.geekbrains.atmosphere.request;
+package ru.geekbrains.atmosphere.model;
 
 import com.google.gson.Gson;
 

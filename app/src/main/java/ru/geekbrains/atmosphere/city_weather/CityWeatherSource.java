@@ -43,7 +43,7 @@ public class CityWeatherSource implements Parcelable {
     };
 
     public CityWeatherSource build() {
-        DataRequestService.startDataRequestService(MyApp.getInstance().getApplicationContext(), cities, resources.getString(R.string.WEATHER_URL));
+        DataRequestService.startDataRequestService(MyApp.getInstance().getApplicationContext(), cities);
         return this;
     }
 

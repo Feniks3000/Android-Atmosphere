@@ -1,14 +1,22 @@
-package ru.geekbrains.atmosphere.request;
+package ru.geekbrains.atmosphere.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+
 public class WeatherRequest implements Parcelable {
+    @Expose
     private Weather[] weather;
+    @Expose
     private Main main;
+    @Expose
     private Wind wind;
+    @Expose
     private Clouds clouds;
+    @Expose
     private String name;
+    @Expose
     private Integer timezone;
 
     public WeatherRequest() {

@@ -93,4 +93,7 @@
     <string name="clear_cities_dialog_message">You are about to clear the list of cities. Sure?</string>
     <string name="clear_cities_dialog_button_yes">Yes</string>
     <string name="clear_cities_dialog_button_no">No</string>
+
+    <string name="backgroundDescription">Background image</string>
+    <string name="backgroundImageUrl">https://nost1.gismeteo.ru/images/2018/10/f088402b.jpg</string>
 </resources>
