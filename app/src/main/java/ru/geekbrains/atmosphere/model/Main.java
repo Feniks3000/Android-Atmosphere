@@ -1,13 +1,20 @@
-package ru.geekbrains.atmosphere.request;
+package ru.geekbrains.atmosphere.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+
 public class Main implements Parcelable {
+    @Expose
     private float temp;
+    @Expose
     private int pressure;
+    @Expose
     private int humidity;
+    @Expose
     private float tempMin;
+    @Expose
     private float tempMax;
 
     protected Main(Parcel in) {

@@ -8,6 +8,19 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <!-- Фоновая картинка с загрузкой их сети -->
+    <ImageView
+        android:id="@+id/imageBackground"
+        android:backgroundTintMode="screen"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/backgroundDescription"
+        android:layout_height="@dimen/empty"
+        android:layout_width="@dimen/empty" />
+
     <!-- Главный экран с тулбаром -->
     <include
         layout="@layout/app_bar_main"
@@ -23,4 +36,5 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/navigation" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

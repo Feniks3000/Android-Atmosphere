@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initBackground();
         initNavigationAndMenuElements();
         setTheme(getCurrentTheme());
 
@@ -75,6 +78,14 @@ public class MainActivity extends AppCompatActivity
             Log.d(CLASS, "OnCreate. Cities - " + cities);
             Log.d(CLASS, "OnCreate. Data source - " + dataSource);
         }
+    }
+
+    private void initBackground() {
+        ImageView imageBackground = findViewById(R.id.imageBackground);
+        Picasso.get()
+                .load(getString(R.string.backgroundImageUrl))
+                .fit()
+                .into(imageBackground);
     }
 
     private void initNavigationAndMenuElements() {

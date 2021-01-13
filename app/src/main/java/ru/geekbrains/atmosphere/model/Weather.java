@@ -1,10 +1,14 @@
-package ru.geekbrains.atmosphere.request;
+package ru.geekbrains.atmosphere.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+
 public class Weather implements Parcelable {
+    @Expose
     private String main;
+    @Expose
     private String description;
 
     protected Weather(Parcel in) {
