@@ -6,9 +6,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class WeatherParser {
+    private static final Gson gson = new Gson();
 
     public static WeatherRequest parser(BufferedReader bufferedReader) throws IOException {
-        return (new Gson()).fromJson(convertToString(bufferedReader), WeatherRequest.class);
+        return gson.fromJson(convertToString(bufferedReader), WeatherRequest.class);
     }
 
     private static String convertToString(BufferedReader bufferedReader) throws IOException {
