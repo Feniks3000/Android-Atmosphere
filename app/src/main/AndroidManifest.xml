@@ -17,6 +17,11 @@
             android:name=".data_request.DataRequestService"
             android:exported="false" />
 
+        <service
+            android:name=".database.DataBaseService"
+            android:enabled="true"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

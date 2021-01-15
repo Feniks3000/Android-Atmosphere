@@ -10,4 +10,5 @@ public interface ExtraConstants {
     String ALL_DETAIL = "ALL_DETAIL";
     String WEATHER_URL = "WEATHER_URL";
     String WEATHER_DATA = "WEATHER_DATA";
+    String HISTORY = "HISTORY";
 }
