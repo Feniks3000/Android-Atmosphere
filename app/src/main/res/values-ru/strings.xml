@@ -96,4 +96,7 @@
     <string name="backgroundDescription">Фоновое изображение</string>
     <string name="backgroundImageUrl">https://nost1.gismeteo.ru/images/2018/10/f088402b.jpg</string>
 
+    <string name="battery_low">Низкий заряд аккумулятора!</string>
+    <string name="connectivity_change">Изменилось подключение!</string>
+
 </resources>

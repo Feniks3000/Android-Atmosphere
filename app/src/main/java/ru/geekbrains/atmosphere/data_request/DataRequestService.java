@@ -13,14 +13,14 @@ import java.util.Random;
 import retrofit2.Response;
 import ru.geekbrains.atmosphere.BuildConfig;
 import ru.geekbrains.atmosphere.ExtraConstants;
-import ru.geekbrains.atmosphere.MainActivity;
 import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.DayWeather;
 import ru.geekbrains.atmosphere.city_weather.HourWeather;
 import ru.geekbrains.atmosphere.model.WeatherRequest;
+import ru.geekbrains.atmosphere.receivers.ActionConstants;
 import ru.geekbrains.atmosphere.singletone.MyApp;
 
-public class DataRequestService extends IntentService implements ExtraConstants {
+public class DataRequestService extends IntentService implements ExtraConstants, ActionConstants {
 
     public DataRequestService() {
         super("DataRequestService");
@@ -87,7 +87,7 @@ public class DataRequestService extends IntentService implements ExtraConstants 
     }
 
     private void sendBrodcast(ArrayList<CityWeather> data) {
-        Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION_WEATHER);
+        Intent broadcastIntent = new Intent(BROADCAST_ACTION_WEATHER);
         broadcastIntent.putParcelableArrayListExtra(WEATHER_DATA, data);
         sendBroadcast(broadcastIntent);
     }

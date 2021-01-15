@@ -37,6 +37,9 @@ import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
 import ru.geekbrains.atmosphere.database.DAO;
+import ru.geekbrains.atmosphere.receivers.ActionConstants;
+import ru.geekbrains.atmosphere.receivers.BatteryLowReceiver;
+import ru.geekbrains.atmosphere.receivers.ConnectivityChangeReceiver;
 import ru.geekbrains.atmosphere.receivers.RequestHistoryReceiver;
 import ru.geekbrains.atmosphere.receivers.RequestWeatherReceiver;
 import ru.geekbrains.atmosphere.settings.Settings;
@@ -48,11 +51,11 @@ public class MainActivity extends AppCompatActivity
         CitiesFragment.OnUpdateCitiesListener,
         RequestWeatherReceiver.OnUpdateWeatherListener,
         ExtraConstants,
+        ActionConstants,
         NavigationView.OnNavigationItemSelectedListener {
 
     private static final String CLASS = MainActivity.class.getSimpleName();
     private static final boolean LOGGING = false;
-    private final DAO dao = MyApp.getDAO();
 
     private boolean landscapeOrientation;
     private CityWeatherSource dataSource;
@@ -61,10 +64,9 @@ public class MainActivity extends AppCompatActivity
     private Fragment activeFragment;
 
     private final BroadcastReceiver requestFinishedReceiver = new RequestWeatherReceiver();
-    public static final String BROADCAST_ACTION_WEATHER = "ru.geekbrains.atmosphere.data_request.weather";
-
     private final BroadcastReceiver requestHistoryFinishedReceiver = new RequestHistoryReceiver();
-    public static final String BROADCAST_ACTION_HISTORY = "ru.geekbrains.atmosphere.database_request.history";
+    private final BroadcastReceiver batteryLowReceiver = new BatteryLowReceiver();
+    private final BroadcastReceiver connectivityChangeReceiver = new ConnectivityChangeReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -328,6 +330,8 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         registerReceiver(requestFinishedReceiver, new IntentFilter(BROADCAST_ACTION_WEATHER));
         registerReceiver(requestHistoryFinishedReceiver, new IntentFilter(BROADCAST_ACTION_HISTORY));
+        registerReceiver(batteryLowReceiver, new IntentFilter(BROADCAST_ACTION_BATTERY_LOW));
+        registerReceiver(connectivityChangeReceiver, new IntentFilter(BROADCAST_ACTION_CONNECTIVITY_CHANGE));
     }
 
     @Override
@@ -335,6 +339,8 @@ public class MainActivity extends AppCompatActivity
         super.onStop();
         unregisterReceiver(requestFinishedReceiver);
         unregisterReceiver(requestHistoryFinishedReceiver);
+        unregisterReceiver(batteryLowReceiver);
+        unregisterReceiver(connectivityChangeReceiver);
     }
 
     @Override

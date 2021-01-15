@@ -96,4 +96,7 @@
 
     <string name="backgroundDescription">Background image</string>
     <string name="backgroundImageUrl">https://nost1.gismeteo.ru/images/2018/10/f088402b.jpg</string>
+
+    <string name="battery_low">Battery low!</string>
+    <string name="connectivity_change">Connectivity change!</string>
 </resources>
