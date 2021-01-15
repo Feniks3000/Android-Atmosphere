@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -17,10 +18,16 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver implements Ext
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String title = context.getResources().getString(R.string.app_name);
+        String text = context.getResources().getString(R.string.connectivity_change);
+
+        Log.i(CLASS, String.format("Notification => %s - %s", title, text));
+
+        // TODO: Notification в API 23 ругается на канал
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(context.getResources().getString(R.string.app_name))
-                .setContentText(context.getResources().getString(R.string.connectivity_change))
+                .setContentTitle(title)
+                .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
