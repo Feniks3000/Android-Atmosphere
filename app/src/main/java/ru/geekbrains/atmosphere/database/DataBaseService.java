@@ -37,7 +37,7 @@ public class DataBaseService extends IntentService implements ExtraConstants {
     }
 
     private void sendBroadcast(ArrayList<History> histories) {
-        Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION_HISTORY_FINISHED);
+        Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION_HISTORY);
         broadcastIntent.putParcelableArrayListExtra(HISTORY, histories);
         sendBroadcast(broadcastIntent);
     }

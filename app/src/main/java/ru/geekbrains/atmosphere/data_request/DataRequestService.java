@@ -87,7 +87,7 @@ public class DataRequestService extends IntentService implements ExtraConstants 
     }
 
     private void sendBrodcast(ArrayList<CityWeather> data) {
-        Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION_FINISHED);
+        Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION_WEATHER);
         broadcastIntent.putParcelableArrayListExtra(WEATHER_DATA, data);
         sendBroadcast(broadcastIntent);
     }

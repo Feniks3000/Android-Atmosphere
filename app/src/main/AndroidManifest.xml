@@ -16,7 +16,6 @@
         <service
             android:name=".data_request.DataRequestService"
             android:exported="false" />
-
         <service
             android:name=".database.DataBaseService"
             android:enabled="true"

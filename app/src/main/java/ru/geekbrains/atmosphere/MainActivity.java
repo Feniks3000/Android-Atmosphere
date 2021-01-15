@@ -1,8 +1,6 @@
 package ru.geekbrains.atmosphere;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -32,18 +30,15 @@ import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 
 import ru.geekbrains.atmosphere.cities.Cities;
 import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
-import ru.geekbrains.atmosphere.data_request.DataRequestService;
 import ru.geekbrains.atmosphere.database.DAO;
-import ru.geekbrains.atmosphere.database.DataBaseService;
-import ru.geekbrains.atmosphere.database.History;
+import ru.geekbrains.atmosphere.receivers.RequestHistoryReceiver;
+import ru.geekbrains.atmosphere.receivers.RequestWeatherReceiver;
 import ru.geekbrains.atmosphere.settings.Settings;
 import ru.geekbrains.atmosphere.singletone.MyApp;
 
@@ -51,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         implements
         SettingsFragment.OnUpdateSettingsListener,
         CitiesFragment.OnUpdateCitiesListener,
+        RequestWeatherReceiver.OnUpdateWeatherListener,
         ExtraConstants,
         NavigationView.OnNavigationItemSelectedListener {
 
@@ -64,8 +60,11 @@ public class MainActivity extends AppCompatActivity
     private Cities cities;
     private Fragment activeFragment;
 
-    public static final String BROADCAST_ACTION_FINISHED = "ru.geekbrains.atmosphere.data_request.request_finished";
-    public static final String BROADCAST_ACTION_HISTORY_FINISHED = "ru.geekbrains.atmosphere.database_request.request_finished";
+    private final BroadcastReceiver requestFinishedReceiver = new RequestWeatherReceiver();
+    public static final String BROADCAST_ACTION_WEATHER = "ru.geekbrains.atmosphere.data_request.weather";
+
+    private final BroadcastReceiver requestHistoryFinishedReceiver = new RequestHistoryReceiver();
+    public static final String BROADCAST_ACTION_HISTORY = "ru.geekbrains.atmosphere.database_request.history";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,8 +326,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(requestFinishedReceiver, new IntentFilter(BROADCAST_ACTION_FINISHED));
-        registerReceiver(requestHistoryFinishedReceiver, new IntentFilter(BROADCAST_ACTION_HISTORY_FINISHED));
+        registerReceiver(requestFinishedReceiver, new IntentFilter(BROADCAST_ACTION_WEATHER));
+        registerReceiver(requestHistoryFinishedReceiver, new IntentFilter(BROADCAST_ACTION_HISTORY));
     }
 
     @Override
@@ -338,29 +337,8 @@ public class MainActivity extends AppCompatActivity
         unregisterReceiver(requestHistoryFinishedReceiver);
     }
 
-    private final BroadcastReceiver requestFinishedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final ArrayList<CityWeather> result = intent.getParcelableArrayListExtra(WEATHER_DATA);
-            for (CityWeather cityWeather : result) {
-                new Thread(() -> {
-                    if (LOGGING) {
-                        Log.d("DataBaseService", "start Thread insert");
-                    }
-                    dao.insert(new History(new Date().getTime(), cityWeather.getTemperature(), cityWeather.getCity()));
-                }).start();
-            }
-            dataSource.update(result);
-            DataBaseService.startDataBaseService(MyApp.getInstance().getApplicationContext());
-        }
-    };
-
-    private final BroadcastReceiver requestHistoryFinishedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final ArrayList<History> result = intent.getParcelableArrayListExtra(HISTORY);
-            Log.i(CLASS, "Data on old weather queries: " + result);
-        }
-    };
-
+    @Override
+    public void onUpdateWeather(ArrayList<CityWeather> data) {
+        dataSource.update(data);
+    }
 }
