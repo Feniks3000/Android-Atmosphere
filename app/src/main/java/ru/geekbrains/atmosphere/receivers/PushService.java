@@ -40,7 +40,7 @@ public class PushService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        Log.d("PushMessage", "Token " + token);
+        Log.d(CLASS, "Token " + token);
         sendRegistrationToServer(token);
     }
 

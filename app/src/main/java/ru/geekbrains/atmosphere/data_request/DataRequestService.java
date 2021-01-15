@@ -21,6 +21,8 @@ import ru.geekbrains.atmosphere.receivers.ActionConstants;
 import ru.geekbrains.atmosphere.singletone.MyApp;
 
 public class DataRequestService extends IntentService implements ExtraConstants, ActionConstants {
+    private static final String CLASS = DataRequestService.class.getSimpleName();
+    private static final boolean LOGGING = false;
 
     public DataRequestService() {
         super("DataRequestService");
@@ -42,7 +44,9 @@ public class DataRequestService extends IntentService implements ExtraConstants,
             //int[] images = getImageArray();
             Random random = new Random();
             new Thread(() -> {
-                Log.i("DataRequestService", "start Thread");
+                if (LOGGING) {
+                    Log.d(CLASS, "start Thread");
+                }
                 for (int i = 0; i < cities.length; i++) {
                     try {
 
@@ -72,7 +76,9 @@ public class DataRequestService extends IntentService implements ExtraConstants,
                                     next4Hours,
                                     next5Days
                             );
-                            Log.i("DataRequestService", "get CityWeather " + cityWeather);
+                            if (LOGGING) {
+                                Log.d(CLASS, "get CityWeather " + cityWeather);
+                            }
                             data.add(cityWeather);
                         }
                     } catch (IOException e) {
@@ -80,7 +86,9 @@ public class DataRequestService extends IntentService implements ExtraConstants,
 
                     }
                 }
-                Log.i("DataRequestService", "all data " + data);
+                if (LOGGING) {
+                    Log.d(CLASS, "all data " + data);
+                }
                 sendBrodcast(data);
             }).start();
         }
