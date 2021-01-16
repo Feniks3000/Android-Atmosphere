@@ -39,10 +39,8 @@ public class DataRequestService extends IntentService implements ExtraConstants,
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             String[] cities = intent.getStringArrayExtra(CITIES);
-            String weatherUrl = intent.getStringExtra(WEATHER_URL);
 
             ArrayList<CityWeather> data = new ArrayList<>();
-            //int[] images = getImageArray();
             Random random = new Random();
             new Thread(() -> {
                 if (LOGGING) {
@@ -72,7 +70,8 @@ public class DataRequestService extends IntentService implements ExtraConstants,
                             CityWeather cityWeather = new CityWeather(
                                     weatherRequest.getName(),
                                     (int) (weatherRequest.getMain().getTemp()),
-                                    0 /*images[random.nextInt(3)]*/,
+                                    0,
+                                    weatherRequest.getWeather()[0].getIcon(),
                                     next4Hours,
                                     next5Days
                             );

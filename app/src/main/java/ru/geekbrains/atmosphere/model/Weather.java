@@ -10,10 +10,13 @@ public class Weather implements Parcelable {
     private String main;
     @Expose
     private String description;
+    @Expose
+    private String icon;
 
     protected Weather(Parcel in) {
         main = in.readString();
         description = in.readString();
+        icon = in.readString();
     }
 
     public static final Creator<Weather> CREATOR = new Creator<Weather>() {
@@ -44,6 +47,14 @@ public class Weather implements Parcelable {
         this.main = main;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -53,5 +64,6 @@ public class Weather implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(main);
         dest.writeString(description);
+        dest.writeString(icon);
     }
 }

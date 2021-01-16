@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer-array name="imagesWeather">
-        <item>@drawable/rain</item>
-        <item>@drawable/snow</item>
-        <item>@drawable/sunny</item>
+        <item>@drawable/icon_01d</item>
+        <item>@drawable/icon_01n</item>
+        <item>@drawable/icon_02d</item>
+        <item>@drawable/icon_02n</item>
+        <item>@drawable/icon_03d</item>
+        <item>@drawable/icon_03n</item>
+        <item>@drawable/icon_04d</item>
+        <item>@drawable/icon_04n</item>
+        <item>@drawable/icon_09d</item>
+        <item>@drawable/icon_09n</item>
+        <item>@drawable/icon_10d</item>
+        <item>@drawable/icon_10n</item>
+        <item>@drawable/icon_11d</item>
+        <item>@drawable/icon_11n</item>
+        <item>@drawable/icon_13d</item>
+        <item>@drawable/icon_13n</item>
+        <item>@drawable/icon_50d</item>
+        <item>@drawable/icon_50n</item>
     </integer-array>
 </resources>

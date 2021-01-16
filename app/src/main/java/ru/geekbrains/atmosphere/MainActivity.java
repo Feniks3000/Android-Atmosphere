@@ -113,10 +113,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(view -> {
             // TODO: Отображать кнопку во фсех фрагментах, кроме фрагмента с городами
             if (activeFragment instanceof CitiesFragment) {
-                Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
             } else {
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -156,13 +156,13 @@ public class MainActivity extends AppCompatActivity
         switch (savedInstanceState.getInt(ACTIVE_FRAGMENT, 0)) {
             case 0:
                 onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
-                Toast.makeText(this, "create CityWeatherFragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "create CityWeatherFragment", Toast.LENGTH_LONG).show();
             case 1:
                 onChangeFragment(SettingsFragment.create(settings));
-                Toast.makeText(this, "create SettingsFragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "create SettingsFragment", Toast.LENGTH_LONG).show();
             case 2:
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "create CitiesFragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "create CitiesFragment", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -233,15 +233,15 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_weather:
                 onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
-                Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_settings:
                 onChangeFragment(SettingsFragment.create(settings));
-                Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_city_choose:
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
                 break;
         }
 
@@ -278,15 +278,15 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.toolbar_add:
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_clear:
                 showClearCitiesDialog();
-                Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_settings:
                 onChangeFragment(SettingsFragment.create(settings));
-                Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
