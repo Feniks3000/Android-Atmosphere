@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -29,6 +30,7 @@ public class History implements Parcelable {
         this.city = city;
     }
 
+    @Ignore
     public History() {
     }
 
