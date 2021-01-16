@@ -87,6 +87,7 @@
     </string-array>
 
     <string name="WEATHER_URL" translatable="false">https://api.openweathermap.org/data/2.5/weather?q=%s</string>
+    <string name="weather_temp_type" translatable="false">metric</string>
 
     <!-- clear cities dialog -->
     <string name="clear_cities_dialog_title">Attention!</string>

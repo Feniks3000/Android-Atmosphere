@@ -13,6 +13,7 @@ import java.util.Random;
 import retrofit2.Response;
 import ru.geekbrains.atmosphere.BuildConfig;
 import ru.geekbrains.atmosphere.ExtraConstants;
+import ru.geekbrains.atmosphere.R;
 import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.DayWeather;
 import ru.geekbrains.atmosphere.city_weather.HourWeather;
@@ -51,7 +52,7 @@ public class DataRequestService extends IntentService implements ExtraConstants,
                     try {
 
                         // TODO: рассмотреть возможность отказа от службы в пользу возможностей Retrofit
-                        Response<WeatherRequest> response = MyApp.getOpenWeatherApi().loadWeather(cities[i], BuildConfig.WEATHER_API_KEY).execute();
+                        Response<WeatherRequest> response = MyApp.getOpenWeatherApi().loadWeather(cities[i], getString(R.string.weather_temp_type), BuildConfig.WEATHER_API_KEY).execute();
                         if (response.body() != null) {
                             WeatherRequest weatherRequest = (WeatherRequest) response.body();
 
@@ -68,10 +69,9 @@ public class DataRequestService extends IntentService implements ExtraConstants,
                                 next5Days.add(new DayWeather(String.valueOf(10 + j), morningTemperature, middayTemperature, eveningTemperature));
                             }
 
-                            // TODO: доработать отображение картинок и получение температуры сразу в цельсиях (может сделать выбор единиц измерения в настройках)
                             CityWeather cityWeather = new CityWeather(
                                     weatherRequest.getName(),
-                                    (int) (weatherRequest.getMain().getTemp() - 273.15),
+                                    (int) (weatherRequest.getMain().getTemp()),
                                     0 /*images[random.nextInt(3)]*/,
                                     next4Hours,
                                     next5Days
