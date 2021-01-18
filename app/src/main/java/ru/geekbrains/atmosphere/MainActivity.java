@@ -36,14 +36,12 @@ import ru.geekbrains.atmosphere.cities.Cities;
 import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
-import ru.geekbrains.atmosphere.database.DAO;
 import ru.geekbrains.atmosphere.receivers.ActionConstants;
 import ru.geekbrains.atmosphere.receivers.BatteryLowReceiver;
 import ru.geekbrains.atmosphere.receivers.ConnectivityChangeReceiver;
 import ru.geekbrains.atmosphere.receivers.RequestHistoryReceiver;
 import ru.geekbrains.atmosphere.receivers.RequestWeatherReceiver;
 import ru.geekbrains.atmosphere.settings.Settings;
-import ru.geekbrains.atmosphere.singletone.MyApp;
 
 public class MainActivity extends AppCompatActivity
         implements
@@ -113,7 +111,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(view -> {
             // TODO: Отображать кнопку во фсех фрагментах, кроме фрагмента с городами
             if (activeFragment instanceof CitiesFragment) {
-                //Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
             } else {
                 onChangeFragment(CitiesFragment.create(cities));
                 //Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
@@ -178,6 +176,7 @@ public class MainActivity extends AppCompatActivity
 
         cities = new Cities(getResources().getStringArray(R.array.cities));
         dataSource = new CityWeatherSourceBuilder().setResources(getResources(), cities).build();
+
         onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
     }
 
