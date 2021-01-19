@@ -1,8 +1,6 @@
 package ru.geekbrains.atmosphere;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -32,18 +30,18 @@ import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 
 import ru.geekbrains.atmosphere.cities.Cities;
 import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSource;
 import ru.geekbrains.atmosphere.city_weather.CityWeatherSourceBuilder;
-import ru.geekbrains.atmosphere.data_request.DataRequestService;
 import ru.geekbrains.atmosphere.database.DAO;
-import ru.geekbrains.atmosphere.database.DataBaseService;
-import ru.geekbrains.atmosphere.database.History;
+import ru.geekbrains.atmosphere.receivers.ActionConstants;
+import ru.geekbrains.atmosphere.receivers.BatteryLowReceiver;
+import ru.geekbrains.atmosphere.receivers.ConnectivityChangeReceiver;
+import ru.geekbrains.atmosphere.receivers.RequestHistoryReceiver;
+import ru.geekbrains.atmosphere.receivers.RequestWeatherReceiver;
 import ru.geekbrains.atmosphere.settings.Settings;
 import ru.geekbrains.atmosphere.singletone.MyApp;
 
@@ -51,12 +49,13 @@ public class MainActivity extends AppCompatActivity
         implements
         SettingsFragment.OnUpdateSettingsListener,
         CitiesFragment.OnUpdateCitiesListener,
+        RequestWeatherReceiver.OnUpdateWeatherListener,
         ExtraConstants,
+        ActionConstants,
         NavigationView.OnNavigationItemSelectedListener {
 
     private static final String CLASS = MainActivity.class.getSimpleName();
     private static final boolean LOGGING = false;
-    private final DAO dao = MyApp.getDAO();
 
     private boolean landscapeOrientation;
     private CityWeatherSource dataSource;
@@ -64,8 +63,10 @@ public class MainActivity extends AppCompatActivity
     private Cities cities;
     private Fragment activeFragment;
 
-    public static final String BROADCAST_ACTION_FINISHED = "ru.geekbrains.atmosphere.data_request.request_finished";
-    public static final String BROADCAST_ACTION_HISTORY_FINISHED = "ru.geekbrains.atmosphere.database_request.request_finished";
+    private final BroadcastReceiver requestFinishedReceiver = new RequestWeatherReceiver();
+    private final BroadcastReceiver requestHistoryFinishedReceiver = new RequestHistoryReceiver();
+    private final BroadcastReceiver batteryLowReceiver = new BatteryLowReceiver();
+    private final BroadcastReceiver connectivityChangeReceiver = new ConnectivityChangeReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +113,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(view -> {
             // TODO: Отображать кнопку во фсех фрагментах, кроме фрагмента с городами
             if (activeFragment instanceof CitiesFragment) {
-                Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "it's Cities Fragment", Toast.LENGTH_LONG).show();
             } else {
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -155,13 +156,13 @@ public class MainActivity extends AppCompatActivity
         switch (savedInstanceState.getInt(ACTIVE_FRAGMENT, 0)) {
             case 0:
                 onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
-                Toast.makeText(this, "create CityWeatherFragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "create CityWeatherFragment", Toast.LENGTH_LONG).show();
             case 1:
                 onChangeFragment(SettingsFragment.create(settings));
-                Toast.makeText(this, "create SettingsFragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "create SettingsFragment", Toast.LENGTH_LONG).show();
             case 2:
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "create CitiesFragment", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "create CitiesFragment", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -232,15 +233,15 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_weather:
                 onChangeFragment(CityWeatherFragment.create(dataSource, landscapeOrientation));
-                Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "nav_weather", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_settings:
                 onChangeFragment(SettingsFragment.create(settings));
-                Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "nav_settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_city_choose:
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "nav_city_choose", Toast.LENGTH_LONG).show();
                 break;
         }
 
@@ -277,15 +278,15 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.toolbar_add:
                 onChangeFragment(CitiesFragment.create(cities));
-                Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_add", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_clear:
                 showClearCitiesDialog();
-                Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_clear", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.toolbar_settings:
                 onChangeFragment(SettingsFragment.create(settings));
-                Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "toolbar_settings", Toast.LENGTH_LONG).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -327,8 +328,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(requestFinishedReceiver, new IntentFilter(BROADCAST_ACTION_FINISHED));
-        registerReceiver(requestHistoryFinishedReceiver, new IntentFilter(BROADCAST_ACTION_HISTORY_FINISHED));
+        registerReceiver(requestFinishedReceiver, new IntentFilter(BROADCAST_ACTION_WEATHER));
+        registerReceiver(requestHistoryFinishedReceiver, new IntentFilter(BROADCAST_ACTION_HISTORY));
+        registerReceiver(batteryLowReceiver, new IntentFilter(BROADCAST_ACTION_BATTERY_LOW));
+        registerReceiver(connectivityChangeReceiver, new IntentFilter(BROADCAST_ACTION_CONNECTIVITY_CHANGE));
     }
 
     @Override
@@ -336,31 +339,12 @@ public class MainActivity extends AppCompatActivity
         super.onStop();
         unregisterReceiver(requestFinishedReceiver);
         unregisterReceiver(requestHistoryFinishedReceiver);
+        unregisterReceiver(batteryLowReceiver);
+        unregisterReceiver(connectivityChangeReceiver);
     }
 
-    private final BroadcastReceiver requestFinishedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final ArrayList<CityWeather> result = intent.getParcelableArrayListExtra(WEATHER_DATA);
-            for (CityWeather cityWeather : result) {
-                new Thread(() -> {
-                    if (LOGGING) {
-                        Log.d("DataBaseService", "start Thread insert");
-                    }
-                    dao.insert(new History(new Date().getTime(), cityWeather.getTemperature(), cityWeather.getCity()));
-                }).start();
-            }
-            dataSource.update(result);
-            DataBaseService.startDataBaseService(MyApp.getInstance().getApplicationContext());
-        }
-    };
-
-    private final BroadcastReceiver requestHistoryFinishedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final ArrayList<History> result = intent.getParcelableArrayListExtra(HISTORY);
-            Log.i(CLASS, "Data on old weather queries: " + result);
-        }
-    };
-
+    @Override
+    public void onUpdateWeather(ArrayList<CityWeather> data) {
+        dataSource.update(data);
+    }
 }

@@ -9,13 +9,15 @@ public class CityWeather implements Parcelable {
     private String city;
     private Integer temperature;
     private Integer picture;
+    private String pictureName;
     private List<HourWeather> next4HoursWeather;
     private List<DayWeather> next5DaysWeather;
 
-    public CityWeather(String city, Integer temperature, Integer picture, List<HourWeather> next4HoursWeather, List<DayWeather> next5DaysWeather) {
+    public CityWeather(String city, Integer temperature, Integer picture, String pictureName, List<HourWeather> next4HoursWeather, List<DayWeather> next5DaysWeather) {
         this.city = city;
         this.temperature = temperature;
         this.picture = picture;
+        this.pictureName = pictureName;
         this.next4HoursWeather = next4HoursWeather;
         this.next5DaysWeather = next5DaysWeather;
     }
@@ -24,6 +26,7 @@ public class CityWeather implements Parcelable {
         city = in.readString();
         temperature = in.readInt();
         picture = in.readInt();
+        pictureName = in.readString();
         next4HoursWeather = in.createTypedArrayList(HourWeather.CREATOR);
         next5DaysWeather = in.createTypedArrayList(DayWeather.CREATOR);
     }
@@ -64,6 +67,14 @@ public class CityWeather implements Parcelable {
         this.picture = picture;
     }
 
+    public String getPictureName() {
+        return pictureName;
+    }
+
+    public void setPictureName(String pictureName) {
+        this.pictureName = pictureName;
+    }
+
     public List<HourWeather> getNext4HoursWeather() {
         return next4HoursWeather;
     }
@@ -86,6 +97,7 @@ public class CityWeather implements Parcelable {
                 "city='" + city + '\'' +
                 ", temperature=" + temperature +
                 ", picture=" + picture +
+                ", pictureName='" + pictureName + '\'' +
                 ", next4HoursWeather=" + next4HoursWeather +
                 ", next5DaysWeather=" + next5DaysWeather +
                 '}';
@@ -101,6 +113,7 @@ public class CityWeather implements Parcelable {
         dest.writeString(city);
         dest.writeInt(temperature);
         dest.writeInt(picture);
+        dest.writeString(pictureName);
         dest.writeTypedList(next4HoursWeather);
         dest.writeTypedList(next5DaysWeather);
     }

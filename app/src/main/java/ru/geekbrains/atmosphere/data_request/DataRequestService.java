@@ -13,14 +13,17 @@ import java.util.Random;
 import retrofit2.Response;
 import ru.geekbrains.atmosphere.BuildConfig;
 import ru.geekbrains.atmosphere.ExtraConstants;
-import ru.geekbrains.atmosphere.MainActivity;
+import ru.geekbrains.atmosphere.R;
 import ru.geekbrains.atmosphere.city_weather.CityWeather;
 import ru.geekbrains.atmosphere.city_weather.DayWeather;
 import ru.geekbrains.atmosphere.city_weather.HourWeather;
 import ru.geekbrains.atmosphere.model.WeatherRequest;
+import ru.geekbrains.atmosphere.receivers.ActionConstants;
 import ru.geekbrains.atmosphere.singletone.MyApp;
 
-public class DataRequestService extends IntentService implements ExtraConstants {
+public class DataRequestService extends IntentService implements ExtraConstants, ActionConstants {
+    private static final String CLASS = DataRequestService.class.getSimpleName();
+    private static final boolean LOGGING = false;
 
     public DataRequestService() {
         super("DataRequestService");
@@ -36,18 +39,18 @@ public class DataRequestService extends IntentService implements ExtraConstants 
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             String[] cities = intent.getStringArrayExtra(CITIES);
-            String weatherUrl = intent.getStringExtra(WEATHER_URL);
 
             ArrayList<CityWeather> data = new ArrayList<>();
-            //int[] images = getImageArray();
             Random random = new Random();
             new Thread(() -> {
-                Log.i("DataRequestService", "start Thread");
+                if (LOGGING) {
+                    Log.d(CLASS, "start Thread");
+                }
                 for (int i = 0; i < cities.length; i++) {
                     try {
 
                         // TODO: рассмотреть возможность отказа от службы в пользу возможностей Retrofit
-                        Response<WeatherRequest> response = MyApp.getOpenWeatherApi().loadWeather(cities[i], BuildConfig.WEATHER_API_KEY).execute();
+                        Response<WeatherRequest> response = MyApp.getOpenWeatherApi().loadWeather(cities[i], getString(R.string.weather_temp_type), BuildConfig.WEATHER_API_KEY).execute();
                         if (response.body() != null) {
                             WeatherRequest weatherRequest = (WeatherRequest) response.body();
 
@@ -64,15 +67,17 @@ public class DataRequestService extends IntentService implements ExtraConstants 
                                 next5Days.add(new DayWeather(String.valueOf(10 + j), morningTemperature, middayTemperature, eveningTemperature));
                             }
 
-                            // TODO: доработать отображение картинок и получение температуры сразу в цельсиях (может сделать выбор единиц измерения в настройках)
                             CityWeather cityWeather = new CityWeather(
                                     weatherRequest.getName(),
-                                    (int) (weatherRequest.getMain().getTemp() - 273.15),
-                                    0 /*images[random.nextInt(3)]*/,
+                                    (int) (weatherRequest.getMain().getTemp()),
+                                    0,
+                                    weatherRequest.getWeather()[0].getIcon(),
                                     next4Hours,
                                     next5Days
                             );
-                            Log.i("DataRequestService", "get CityWeather " + cityWeather);
+                            if (LOGGING) {
+                                Log.d(CLASS, "get CityWeather " + cityWeather);
+                            }
                             data.add(cityWeather);
                         }
                     } catch (IOException e) {
@@ -80,14 +85,16 @@ public class DataRequestService extends IntentService implements ExtraConstants 
 
                     }
                 }
-                Log.i("DataRequestService", "all data " + data);
+                if (LOGGING) {
+                    Log.d(CLASS, "all data " + data);
+                }
                 sendBrodcast(data);
             }).start();
         }
     }
 
     private void sendBrodcast(ArrayList<CityWeather> data) {
-        Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION_FINISHED);
+        Intent broadcastIntent = new Intent(BROADCAST_ACTION_WEATHER);
         broadcastIntent.putParcelableArrayListExtra(WEATHER_DATA, data);
         sendBroadcast(broadcastIntent);
     }

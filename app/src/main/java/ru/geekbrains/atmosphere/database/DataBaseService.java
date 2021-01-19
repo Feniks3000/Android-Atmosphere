@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ru.geekbrains.atmosphere.ExtraConstants;
-import ru.geekbrains.atmosphere.MainActivity;
+import ru.geekbrains.atmosphere.receivers.ActionConstants;
 import ru.geekbrains.atmosphere.singletone.MyApp;
 
-public class DataBaseService extends IntentService implements ExtraConstants {
+public class DataBaseService extends IntentService implements ExtraConstants, ActionConstants {
+    private static final String CLASS = DataBaseService.class.getSimpleName();
+    private static final boolean LOGGING = false;
+    private final DAO dao = MyApp.getDAO();
 
     public DataBaseService() {
         super("DataBaseService");
     }
-
-    private final DAO dao = MyApp.getDAO();
 
     public static void startDataBaseService(Context context) {
         Intent intent = new Intent(context, DataBaseService.class);
@@ -28,16 +29,19 @@ public class DataBaseService extends IntentService implements ExtraConstants {
     @Override
     protected void onHandleIntent(Intent intent) {
         new Thread(() -> {
-            Log.i("DataBaseService", "start Thread");
-            Log.i("DataBaseService", "Array -> " + Arrays.toString(dao.selectAll()));
+            if (LOGGING) {
+                Log.d(CLASS, "start Thread");
+            }
             ArrayList<History> histories = new ArrayList<>(Arrays.asList(dao.selectAll()));
-            Log.i("DataBaseService", "ArrayList -> " + histories);
+            if (LOGGING) {
+                Log.d(CLASS, "ArrayList with history -> " + histories);
+            }
             sendBroadcast(histories);
         }).start();
     }
 
     private void sendBroadcast(ArrayList<History> histories) {
-        Intent broadcastIntent = new Intent(MainActivity.BROADCAST_ACTION_HISTORY_FINISHED);
+        Intent broadcastIntent = new Intent(BROADCAST_ACTION_HISTORY);
         broadcastIntent.putParcelableArrayListExtra(HISTORY, histories);
         sendBroadcast(broadcastIntent);
     }
